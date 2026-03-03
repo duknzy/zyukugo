@@ -2199,7 +2199,6 @@ renderSpellingInterface(q) {
              const slotsEl = document.getElementById('spelling-slots');
              const poolEl = document.getElementById('spelling-pool');
              
-             // ターゲットをスペースで分割して単語の配列にする
              const targetWordsArray = q.w.trim().split(/\s+/);
 
              if (this.spellingAns.length === 0) {
@@ -2220,8 +2219,7 @@ renderSpellingInterface(q) {
                  const charObj = this.spellingAns[i]; 
                  
                  if (charObj) {
-                     // 単語が収まるように幅を可変(px-3など)に変更
-                     slot.className = "min-w-[3rem] px-3 h-12 border border-white bg-gray-800 rounded mx-1 flex items-center justify-center text-lg font-bold text-white cursor-pointer active:scale-95 transition-transform";
+                     slot.className = "min-w-[3rem] px-3 h-12 border border-white bg-gray-800 rounded mx-1 flex items-center justify-center text-lg font-bold text-white cursor-pointer active:scale-95 transition-transform shadow-[0_0_10px_rgba(255,255,255,0.2)]";
                      slot.innerText = charObj.char;
                      slot.onclick = () => this.handleSpellingUndo(i, q);
                  } else {
@@ -2233,17 +2231,26 @@ renderSpellingInterface(q) {
 
              this.spellingPoolState.forEach((item) => {
                  const btn = document.createElement('button');
-                 // プールのボタンも幅を可変に
-                 btn.className = "px-4 h-12 bg-gray-800 text-white rounded shadow-md border border-gray-600 active:bg-gray-600 transition-all text-lg font-bold"; 
-                 btn.innerText = item.char;
                  
                  if (item.used) {
-                     btn.classList.add('opacity-0', 'pointer-events-none');
+                     // 選択済みのボタンを半透明にし、クリックで取り消し（Undo）を実行する
+                     btn.className = "px-4 h-12 bg-gray-900 text-gray-500 rounded shadow-inner border border-gray-700 active:scale-95 transition-all text-lg font-bold opacity-50"; 
+                     btn.innerText = item.char;
+                     btn.onclick = () => this.handlePoolUndo(item, q);
                  } else {
+                     btn.className = "px-4 h-12 bg-gray-800 text-white rounded shadow-md border border-gray-500 active:bg-gray-600 active:scale-95 transition-all text-lg font-bold hover:border-white"; 
+                     btn.innerText = item.char;
                      btn.onclick = () => this.handleSpellingClick(item, q);
                  }
                  poolEl.appendChild(btn);
              });
+         }
+       handlePoolUndo(item, q) {
+             if (this.isLocked) return;
+             const index = this.spellingAns.findIndex(ans => ans.id === item.id);
+             if (index !== -1) {
+                 this.handleSpellingUndo(index, q);
+             }
          }
 
          handleSpellingClick(item, q) {
@@ -2252,25 +2259,21 @@ renderSpellingInterface(q) {
              this.spellingAns.push(item);
              this.renderSpellingInterface(q);
              
-             // 文字数ではなく「単語数」でクリア判定を行う
              const targetLen = q.w.trim().split(/\s+/).length;
              if (this.spellingAns.length === targetLen) {
                  this.checkSpellingWin(q);
              }
          }
-
-         checkSpellingWin(q) {
-             // 選択された単語をスペースで結合
+        checkSpellingWin(q) {
              const userWord = this.spellingAns.map(a => a.char).join(' ');
-             // 比較用のターゲットワードも念のためスペースを正規化
              const targetWord = q.w.trim().replace(/\s+/g, ' ');
              const slotsEl = document.getElementById('spelling-slots');
+             const feedback = document.getElementById('feedback');
 
              if (userWord === targetWord) {
                  this.isLocked = true;
                  slotsEl.classList.add('correct-lane');
-                 const feedback = document.getElementById('feedback');
-                 feedback.innerHTML = `<span class="text-[#39ff14] text-xs font-bold animate-pulse">🟣 PERFECT SHIFT</span>`;
+                 feedback.innerHTML = `<span class="text-[#39ff14] text-sm font-bold animate-pulse">🟣 PERFECT SHIFT</span>`;
                  this.speak(q.w);
                  
                  this.currentStreak++;
@@ -2294,7 +2297,9 @@ renderSpellingInterface(q) {
                  this.currentStreak = 0;
                  
                  slotsEl.classList.add('wrong-lane', 'animate-shake');
-                 document.getElementById('feedback').innerHTML = `<span class="text-red-500 text-xs font-bold">GEARBOX DAMAGE</span>`;
+                 
+                 // 間違えた場合は正解を白文字で大きく表示する
+                 feedback.innerHTML = `<span class="text-red-500 text-sm font-bold mr-2">DAMAGE:</span><span class="text-white text-base font-bold tracking-normal normal-case">${q.w}</span>`;
 
                  if (!this.missedWordsLog.find(item => item.w === q.w)) this.missedWordsLog.push({ w: q.w, m: q.m });
                  
@@ -2302,15 +2307,28 @@ renderSpellingInterface(q) {
                      window.handleSRSUpdate({ ...q, timeTaken: 5.0 }, false);
                  }
 
+                 // 単語モード同様、間違えた問題を一番後ろに追加して後で再挑戦させる
+                 this.questions.push(q);
+
+                 // 熟語なので答えを確認する時間を長めに取る (2500ms)
                  setTimeout(() => {
                      this.isLocked = false;
                      slotsEl.classList.remove('wrong-lane', 'animate-shake');
-                     document.getElementById('feedback').innerText = '';
+                     feedback.innerText = '';
                      this.spellingAns = [];
-                     this.spellingPoolState.forEach(p => p.used = false);
-                     this.renderSpellingInterface(q); 
-                 }, 1000);
+                     
+                     this.currentIndex++;
+                     this.showVocabQuestion(); 
+                 }, 2500);
              }
+         }
+
+        handleSpellingUndo(index, q) {
+             if (this.isLocked) return; 
+             const removedItem = this.spellingAns.splice(index, 1)[0];
+             const poolItem = this.spellingPoolState.find(p => p.id === removedItem.id);
+             if (poolItem) poolItem.used = false;
+             this.renderSpellingInterface(q);
          }
 
          renderStandardOptions(q, container) {
