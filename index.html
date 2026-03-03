@@ -2195,35 +2195,37 @@ document.addEventListener('DOMContentLoaded', () => {
              }
          }
 
-         renderSpellingInterface(q) {
+renderSpellingInterface(q) {
              const slotsEl = document.getElementById('spelling-slots');
              const poolEl = document.getElementById('spelling-pool');
              
+             // ターゲットをスペースで分割して単語の配列にする
+             const targetWordsArray = q.w.trim().split(/\s+/);
+
              if (this.spellingAns.length === 0) {
                  slotsEl.innerHTML = '';
                  poolEl.innerHTML = '';
                  slotsEl.classList.remove('correct-lane', 'wrong-lane');
                  this.isLocked = false;
                  
-                 const targetWord = q.w.trim();
-                 const letters = targetWord.split('');
-                 this.spellingPoolState = letters.map((char, i) => ({ char, id: i, used: false })).sort(() => Math.random() - 0.5);
+                 this.spellingPoolState = targetWordsArray.map((word, i) => ({ char: word, id: i, used: false })).sort(() => Math.random() - 0.5);
              } else {
                  slotsEl.innerHTML = '';
                  poolEl.innerHTML = '';
              }
 
-             const targetLen = q.w.trim().length;
+             const targetLen = targetWordsArray.length;
              for(let i=0; i<targetLen; i++) {
                  const slot = document.createElement('div');
                  const charObj = this.spellingAns[i]; 
                  
                  if (charObj) {
-                     slot.className = "w-10 h-12 border border-white bg-gray-800 rounded mx-1 flex items-center justify-center text-2xl font-bold text-white cursor-pointer active:scale-95 transition-transform";
+                     // 単語が収まるように幅を可変(px-3など)に変更
+                     slot.className = "min-w-[3rem] px-3 h-12 border border-white bg-gray-800 rounded mx-1 flex items-center justify-center text-lg font-bold text-white cursor-pointer active:scale-95 transition-transform";
                      slot.innerText = charObj.char;
                      slot.onclick = () => this.handleSpellingUndo(i, q);
                  } else {
-                     slot.className = "w-10 h-12 border-b-2 border-gray-600 mx-1 flex items-center justify-center text-xl font-bold text-gray-600";
+                     slot.className = "min-w-[3rem] px-3 h-12 border-b-2 border-gray-600 mx-1 flex items-center justify-center text-lg font-bold text-gray-600";
                      slot.innerText = "_";
                  }
                  slotsEl.appendChild(slot);
@@ -2231,7 +2233,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
              this.spellingPoolState.forEach((item) => {
                  const btn = document.createElement('button');
-                 btn.className = "letter-chip bg-gray-800 text-white rounded shadow-md border border-gray-600 active:bg-gray-600 transition-all w-12 h-12 text-xl";
+                 // プールのボタンも幅を可変に
+                 btn.className = "px-4 h-12 bg-gray-800 text-white rounded shadow-md border border-gray-600 active:bg-gray-600 transition-all text-lg font-bold"; 
                  btn.innerText = item.char;
                  
                  if (item.used) {
@@ -2248,22 +2251,19 @@ document.addEventListener('DOMContentLoaded', () => {
              item.used = true;
              this.spellingAns.push(item);
              this.renderSpellingInterface(q);
-             if (this.spellingAns.length === q.w.trim().length) {
+             
+             // 文字数ではなく「単語数」でクリア判定を行う
+             const targetLen = q.w.trim().split(/\s+/).length;
+             if (this.spellingAns.length === targetLen) {
                  this.checkSpellingWin(q);
              }
          }
 
-         handleSpellingUndo(index, q) {
-             if (this.isLocked) return; 
-             const removedItem = this.spellingAns.splice(index, 1)[0];
-             const poolItem = this.spellingPoolState.find(p => p.id === removedItem.id);
-             if (poolItem) poolItem.used = false;
-             this.renderSpellingInterface(q);
-         }
-
          checkSpellingWin(q) {
-             const userWord = this.spellingAns.map(a => a.char).join('');
-             const targetWord = q.w.trim();
+             // 選択された単語をスペースで結合
+             const userWord = this.spellingAns.map(a => a.char).join(' ');
+             // 比較用のターゲットワードも念のためスペースを正規化
+             const targetWord = q.w.trim().replace(/\s+/g, ' ');
              const slotsEl = document.getElementById('spelling-slots');
 
              if (userWord === targetWord) {
