@@ -1375,7 +1375,7 @@ cure A of B: AのB（病気・悪癖など）を治す | This treatment should c
              }
          }
 
-         checkSpellingWin(q) {
+        checkSpellingWin(q) {
              const userWord = this.spellingAns.map(a => a.char).join(' ');
              const targetWord = q.w.trim().replace(/\s+/g, ' ');
              const slotsEl = document.getElementById('spelling-slots');
@@ -1410,7 +1410,10 @@ cure A of B: AのB（病気・悪癖など）を治す | This treatment should c
                  slotsEl.classList.add('wrong-lane', 'animate-shake');
                  feedback.innerHTML = `<span class="text-red-500 text-sm font-bold mr-2">DAMAGE:</span><span class="text-white text-base font-bold tracking-normal normal-case">${q.w}</span>`;
 
-                 if (!this.missedWordsLog.find(item => item.w === q.w)) this.missedWordsLog.push({ w: q.w, m: q.m });
+                 // ★例文(ex)もログに保存するように変更
+                 if (!this.missedWordsLog.find(item => item.w === q.w)) {
+                     this.missedWordsLog.push({ w: q.w, m: q.m, ex: q.ex });
+                 }
                  
                  if (window.handleSRSUpdate) {
                      window.handleSRSUpdate({ ...q, timeTaken: 5.0 }, false);
@@ -1463,7 +1466,7 @@ cure A of B: AのB（病気・悪癖など）を治す | This treatment should c
              }
          }
 
-         handleVocabAnswer(selected, q) {
+        handleVocabAnswer(selected, q) {
              const btns = document.querySelectorAll('.option-btn');
              if (btns.length > 0 && btns[0].disabled) return;
              btns.forEach(b => b.disabled = true);
@@ -1509,7 +1512,11 @@ cure A of B: AのB（病気・悪癖など）を治す | This treatment should c
                  
                  feedback.innerText = `WRONG: ${q.w} = ${q.m}`;
                  feedback.className = "mt-4 text-center h-6 font-bold text-red-500 animate-pulse";
-                 if (!this.missedWordsLog.find(item => item.w === q.w)) this.missedWordsLog.push({ w: q.w, m: q.m });
+                 
+                 // ★例文(ex)もログに保存するように変更
+                 if (!this.missedWordsLog.find(item => item.w === q.w)) {
+                     this.missedWordsLog.push({ w: q.w, m: q.m, ex: q.ex });
+                 }
                  
                  this.questions.push(q);
                  setTimeout(() => { 
@@ -1600,11 +1607,26 @@ cure A of B: AのB（病気・悪癖など）を治す | This treatment should c
              }
 
              document.getElementById('rank-text').innerText = `Time: ${totalTime.toFixed(2)}s | Misses: ${this.missCount}`;
+             document.getElementById('rank-text').innerText += ` | Max Streak: ${this.maxStreak}`;
              document.getElementById('result-title').innerText = "CHECKERED FLAG";
              
              const review = document.getElementById('review-list');
              let summaryHtml = `<div class="mb-4 font-bold text-white uppercase text-sm tracking-widest border-b border-gray-700 pb-2">Lap Analysis</div>`;
-             if (this.missedWordsLog.length > 0) { summaryHtml += this.missedWordsLog.map(item => `<div class="mb-2 text-sm p-2 bg-red-900/10 border border-red-900/30 rounded"><span class="font-bold text-white block">${item.w}</span><span class="text-gray-400">${item.m}</span></div>`).join(''); } else { summaryHtml += '<p class="text-green-500 font-bold">Perfect Lap. No Issues Detected.</p>'; }
+             
+             // ★ログに保存した例文(ex)を表示するように変更
+             if (this.missedWordsLog.length > 0) { 
+                 summaryHtml += this.missedWordsLog.map(item => `
+                    <div class="mb-3 text-sm p-3 bg-red-900/10 border border-red-900/30 rounded">
+                        <div class="flex justify-between items-start mb-1">
+                            <span class="font-bold text-white text-base">${item.w}</span>
+                            <span class="text-xs text-gray-400 font-mono">${item.m}</span>
+                        </div>
+                        ${item.ex ? `<p class="text-gray-400 text-xs italic mt-2 border-l border-red-600 pl-2 font-serif">${item.ex}</p>` : ''}
+                    </div>
+                 `).join(''); 
+             } else { 
+                 summaryHtml += '<p class="text-green-500 font-bold">Perfect Lap. No Issues Detected.</p>'; 
+             }
              review.innerHTML = summaryHtml;
              
             const nextBtn = document.getElementById('next-round-btn');
