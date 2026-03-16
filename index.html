@@ -475,7 +475,7 @@
                     <h2 id="target-word" class="f1-font text-5xl ... cursor-pointer" title="Tap for Hint"></h2>
 
                     <div id="example-area" class="mt-4 text-gray-400 italic text-center hidden min-h-[1.5rem]">
-                        <p id="example-text" class="text-sm md:text-base border-l-2 border-red-600 px-4 bg-white/5 py-2 rounded"></p>
+                      <p id="example-text" class="text-lg md:text-xl border-l-2 border-red-600 px-4 bg-white/5 py-2 rounded font-serif"></p>
                     </div>
 
                     <div class="flex gap-6 mt-6">
@@ -2147,18 +2147,15 @@ to date：現在まで｜This victory is definitely his most impressive performa
              const exText = document.getElementById('example-text');
 
              // ★例文の表示ロジックを「常にフル表示」に固定
+             // ★例文の表示ロジック：最初から表示(remove hidden)し、タップ処理を削除
              if (q.ex) {
                  exText.innerText = q.ex; 
-                 exArea.classList.add('hidden'); // 初期状態は隠しておく（DRSスイッチ）
-                 targetDisplay.style.cursor = "pointer";
-                 targetDisplay.title = "Tap for Hint";
-                 targetDisplay.onclick = () => {
-                     exArea.classList.toggle('hidden');
-                 };
+                 exArea.classList.remove('hidden'); // 自動で表示させる
+                 targetDisplay.style.cursor = "default"; // タップ不要なのでカーソルを戻す
+                 targetDisplay.onclick = null; 
              } else {
                  exArea.classList.add('hidden');
                  targetDisplay.style.cursor = "default";
-                 targetDisplay.title = "";
                  targetDisplay.onclick = null; 
              }
 
