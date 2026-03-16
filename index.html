@@ -1238,21 +1238,23 @@ cure A of B: AのB（病気・悪癖など）を治す | This treatment should c
              }
 
              const exArea = document.getElementById('example-area');
-    const exText = document.getElementById('example-text');
-    
+             const exText = document.getElementById('example-text');
 
-    if (q.ex) {
-        // ★熟語を隠した状態で例文をセット
-        exText.innerText = this.maskIdiom(q.ex, q.w);
-        exArea.classList.add('hidden'); 
-        targetDisplay.style.cursor = "pointer";
-        targetDisplay.onclick = () => {
-            exArea.classList.toggle('hidden');
-        };
-    } else {
-        exArea.classList.add('hidden');
-        targetDisplay.onclick = null;
-    }
+             // ★例文の表示ロジックを「常にフル表示」に固定
+             if (q.ex) {
+                 exText.innerText = q.ex; 
+                 exArea.classList.add('hidden'); // 初期状態は隠しておく（DRSスイッチ）
+                 targetDisplay.style.cursor = "pointer";
+                 targetDisplay.title = "Tap for Hint";
+                 targetDisplay.onclick = () => {
+                     exArea.classList.toggle('hidden');
+                 };
+             } else {
+                 exArea.classList.add('hidden');
+                 targetDisplay.style.cursor = "default";
+                 targetDisplay.title = "";
+                 targetDisplay.onclick = null; 
+             }
 
              this.lapStartTime = Date.now(); 
 
