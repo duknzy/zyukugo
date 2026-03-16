@@ -165,7 +165,6 @@
             animation: slideInRight 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
         }
 
-        /* 背景にうっすら走るスキャンライン */
         .radio-box::before {
             content: '';
             position: absolute;
@@ -195,7 +194,6 @@
             box-shadow: 0 0 8px rgba(0, 240, 255, 0.6);
         }
 
-        /* 各バーのアニメーションをずらす */
         .wave-bar:nth-child(1) { animation-delay: 0.1s; height: 40%; }
         .wave-bar:nth-child(2) { animation-delay: 0.3s; height: 70%; }
         .wave-bar:nth-child(3) { animation-delay: 0.0s; height: 100%; }
@@ -234,7 +232,6 @@
     </video>
 
     <div id="app" class="w-full max-w-6xl mx-auto flex flex-col">
-        
         <div id="gate-screen" class="race-card p-8 rounded-2xl shadow-2xl text-center relative overflow-hidden animate-slide-in my-auto max-w-md mx-auto w-full">
             <h1 class="f1-font text-5xl mb-2 font-bold text-white tracking-wider">RB<span class="text-red-600">-28</span></h1>
             <p class="text-gray-400 font-mono text-xs uppercase tracking-[0.4em] mb-12">Hybrid Learning System</p>
@@ -246,11 +243,8 @@
         </div>
 
         <div id="start-screen" class="hidden race-card p-4 md:p-6 rounded-2xl relative z-10 animate-slide-in my-auto w-full">
-            
             <div class="grid grid-cols-1 md:grid-cols-12 gap-8">
-                
                 <div class="md:col-span-5 flex flex-col gap-6">
-                    
                     <div class="flex justify-between items-end border-b border-gray-700 pb-4">
                         <div class="flex items-center gap-3">
                             <div class="w-3 h-3 rounded-full bg-green-500 animate-pulse shadow-[0_0_10px_#22c55e]"></div>
@@ -277,17 +271,16 @@
                     </div>
                     
                     <div class="mt-auto flex flex-col gap-3">
-    <button onclick="quiz.startFlashcardMode()" class="w-full f1-font bg-gray-800 hover:bg-gray-700 text-gray-200 py-4 rounded-xl font-bold tracking-[0.2em] uppercase transition-all transform active:scale-[0.98] shadow-lg border border-gray-600 text-lg flex items-center justify-center gap-2">
-        <span class="text-blue-400">■</span> Free Practice <span class="text-[10px] text-gray-500 font-mono">(Flashcards)</span>
-    </button>
-    <button onclick="quiz.start()" class="w-full f1-font bg-gradient-to-r from-red-600 to-red-700 hover:from-red-500 hover:to-red-600 text-white py-6 rounded-xl font-bold tracking-[0.2em] uppercase transition-all transform active:scale-[0.98] shadow-lg shadow-red-900/40 text-2xl border-b-4 border-red-900">
-        Start Qualifying
-    </button>
-</div>
+                        <button onclick="quiz.startFlashcardMode()" class="w-full f1-font bg-gray-800 hover:bg-gray-700 text-gray-200 py-4 rounded-xl font-bold tracking-[0.2em] uppercase transition-all transform active:scale-[0.98] shadow-lg border border-gray-600 text-lg flex items-center justify-center gap-2">
+                            <span class="text-blue-400">■</span> Free Practice <span class="text-[10px] text-gray-500 font-mono">(Flashcards)</span>
+                        </button>
+                        <button onclick="quiz.start()" class="w-full f1-font bg-gradient-to-r from-red-600 to-red-700 hover:from-red-500 hover:to-red-600 text-white py-6 rounded-xl font-bold tracking-[0.2em] uppercase transition-all transform active:scale-[0.98] shadow-lg shadow-red-900/40 text-2xl border-b-4 border-red-900">
+                            Start Qualifying
+                        </button>
+                    </div>
                 </div>
 
                 <div class="md:col-span-7 flex flex-col gap-4 border-t md:border-t-0 md:border-l border-gray-700 pt-6 md:pt-0 md:pl-8">
-                    
                     <div class="flex items-center gap-2 mb-2">
                         <span class="text-gray-400">⚙️</span>
                         <h3 class="f1-font text-lg font-bold text-white tracking-widest uppercase">Race Strategy</h3>
@@ -299,7 +292,6 @@
                     </button>
 
                     <div id="strategy-panel" class="strategy-panel-mobile space-y-6">
-                        
                         <div class="flex border-b border-gray-700">
                             <button onclick="quiz.switchStrategyTab('normal')" id="tab-normal" class="px-4 py-2 text-[10px] md:text-xs font-bold text-white border-b-2 border-red-500 hover:bg-white/5 transition-colors">NORMAL</button>
                             <button onclick="quiz.switchStrategyTab('random')" id="tab-random" class="px-4 py-2 text-[10px] md:text-xs font-bold text-gray-500 border-b-2 border-transparent hover:text-white transition-colors">RANDOM</button>
@@ -327,7 +319,8 @@
                                         </button>
                                     </div>
                                 </div>
-                            </div> </div> 
+                            </div>
+                        </div> 
 
                         <div id="strategy-random" class="hidden space-y-4">
                             <div class="bg-indigo-900/20 border border-indigo-500/30 p-4 rounded-xl">
@@ -479,7 +472,12 @@
             <div id="vocab-interface" class="flex-grow flex flex-col justify-between">
                 <div class="flex-grow flex flex-col items-center justify-center mb-8 relative">
                     <div class="absolute -top-6 text-gray-500 text-[10px] uppercase tracking-widest" id="question-label">Target</div>
-                    <h2 id="target-word" class="f1-font text-5xl md:text-6xl font-bold text-white tracking-wide drop-shadow-xl break-words px-2 text-center transition-all"></h2>
+                    <h2 id="target-word" class="f1-font text-5xl ... cursor-pointer" title="Tap for Hint"></h2>
+
+                    <div id="example-area" class="mt-4 text-gray-400 italic text-center hidden min-h-[1.5rem]">
+                        <p id="example-text" class="text-sm md:text-base border-l-2 border-red-600 px-4 bg-white/5 py-2 rounded"></p>
+                    </div>
+
                     <div class="flex gap-6 mt-6">
                         <button id="speak-btn" class="text-gray-400 hover:text-cyan-400 transition-colors p-4 rounded-full border border-gray-700 bg-black/40 hover:bg-black/60 active:scale-95 flex items-center justify-center group shadow-lg">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 group-hover:scale-110 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z" /></svg>
@@ -494,10 +492,8 @@
                 <div id="options-container" class="grid grid-cols-2 gap-4 max-w-4xl mx-auto w-full"></div>
 
                 <div id="spelling-interface" class="hidden w-full flex flex-col items-center">
-                    <div id="spelling-slots" class="flex flex-wrap gap-2 justify-center mb-8 min-h-[70px] p-4 bg-black/30 rounded-xl border-b-2 border-dashed border-gray-600 w-full transition-all">
-                        </div>
-                    <div id="spelling-pool" class="flex flex-wrap gap-3 justify-center w-full max-w-4xl">
-                        </div>
+                    <div id="spelling-slots" class="flex flex-wrap gap-2 justify-center mb-8 min-h-[70px] p-4 bg-black/30 rounded-xl border-b-2 border-dashed border-gray-600 w-full transition-all"></div>
+                    <div id="spelling-pool" class="flex flex-wrap gap-3 justify-center w-full max-w-4xl"></div>
                     <p class="text-[10px] text-gray-500 mt-6 uppercase">Tip: Tap slot to Undo</p>
                 </div>
             </div>
@@ -506,36 +502,32 @@
         </div>
 
         <div id="flashcard-screen" class="hidden race-card p-6 rounded-2xl shadow-2xl relative flex flex-col justify-between my-auto min-h-[500px] w-full max-w-4xl mx-auto z-20">
-    <div class="flex justify-between items-start mb-6">
-        <div class="flex flex-col text-left">
-            <span id="fc-round-name" class="f1-font text-[10px] text-blue-400 uppercase tracking-widest">FREE PRACTICE</span>
-            <span class="f1-font text-white font-bold text-lg">DATA GATHERING</span>
-        </div>
-        <div class="text-right">
-            <div id="fc-progress" class="f1-font text-2xl text-blue-400 font-mono">1/20</div>
-        </div>
-    </div>
-    
-   <div id="fc-card" onclick="quiz.flipFlashcard()" class="flex-grow flex flex-col items-center justify-center bg-gray-900/60 border-2 border-dashed border-gray-600 hover:border-blue-500 rounded-xl cursor-pointer transition-all active:scale-[0.98] relative p-6 mb-8 group shadow-inner">
-        <span class="absolute top-4 text-[10px] text-gray-500 uppercase tracking-widest font-mono group-hover:text-blue-400 transition-colors animate-pulse">Tap to Reveal</span>
-        
-        <button id="fc-speak-btn" onclick="event.stopPropagation(); quiz.speakFlashcardWord();" class="absolute top-0 left-0 text-3xl p-6 z-20 cursor-pointer hover:scale-110 transition-transform text-gray-400 hover:text-cyan-400 drop-shadow-md">🔊</button>
-
-        <button id="fc-bookmark-btn" onclick="event.stopPropagation(); quiz.toggleFlashcardBookmark(event);" class="absolute top-0 right-0 text-3xl p-6 z-20 cursor-pointer hover:scale-110 transition-transform drop-shadow-md">🏳️</button>
-        
-        <h2 id="fc-word" class="f1-font text-5xl md:text-7xl font-bold text-white tracking-wide break-words text-center mb-6 drop-shadow-lg transition-all mt-4"></h2>
-        
-        <div id="fc-meaning-container" class="hidden w-full border-t border-gray-700 pt-6 mt-2">
-            <h3 id="fc-meaning" class="text-2xl md:text-4xl font-bold text-yellow-400 tracking-wide break-words text-center"></h3>
-        </div>
-    </div>
+            <div class="flex justify-between items-start mb-6">
+                <div class="flex flex-col text-left">
+                    <span id="fc-round-name" class="f1-font text-[10px] text-blue-400 uppercase tracking-widest">FREE PRACTICE</span>
+                    <span class="f1-font text-white font-bold text-lg">DATA GATHERING</span>
+                </div>
+                <div class="text-right">
+                    <div id="fc-progress" class="f1-font text-2xl text-blue-400 font-mono">1/20</div>
+                </div>
+            </div>
             
-    <div class="grid grid-cols-3 gap-4">
-        <button onclick="quiz.prevFlashcard()" class="bg-gray-800 hover:bg-gray-700 text-white py-4 rounded-xl font-bold transition-all uppercase text-sm f1-font active:scale-95 border border-gray-600">◀ Prev</button>
-        <button onclick="quiz.exitFlashcardMode()" class="bg-red-900/40 hover:bg-red-800/80 text-white py-4 rounded-xl font-bold transition-all uppercase text-sm f1-font border border-red-900 active:scale-95">Box (Exit)</button>
-        <button onclick="quiz.nextFlashcard()" class="bg-blue-600 hover:bg-blue-500 text-white py-4 rounded-xl font-bold transition-all uppercase text-sm f1-font shadow-[0_0_15px_rgba(37,99,235,0.4)] active:scale-95">Next ▶</button>
-    </div>
-</div>
+            <div id="fc-card" onclick="quiz.flipFlashcard()" class="flex-grow flex flex-col items-center justify-center bg-gray-900/60 border-2 border-dashed border-gray-600 hover:border-blue-500 rounded-xl cursor-pointer transition-all active:scale-[0.98] relative p-6 mb-8 group shadow-inner">
+                <span class="absolute top-4 text-[10px] text-gray-500 uppercase tracking-widest font-mono group-hover:text-blue-400 transition-colors animate-pulse">Tap to Reveal</span>
+                <button id="fc-speak-btn" onclick="event.stopPropagation(); quiz.speakFlashcardWord();" class="absolute top-0 left-0 text-3xl p-6 z-20 cursor-pointer hover:scale-110 transition-transform text-gray-400 hover:text-cyan-400 drop-shadow-md">🔊</button>
+                <button id="fc-bookmark-btn" onclick="event.stopPropagation(); quiz.toggleFlashcardBookmark(event);" class="absolute top-0 right-0 text-3xl p-6 z-20 cursor-pointer hover:scale-110 transition-transform drop-shadow-md">🏳️</button>
+                <h2 id="fc-word" class="f1-font text-5xl md:text-7xl font-bold text-white tracking-wide break-words text-center mb-6 drop-shadow-lg transition-all mt-4"></h2>
+                <div id="fc-meaning-container" class="hidden w-full border-t border-gray-700 pt-6 mt-2">
+                    <h3 id="fc-meaning" class="text-2xl md:text-4xl font-bold text-yellow-400 tracking-wide break-words text-center"></h3>
+                </div>
+            </div>
+                    
+            <div class="grid grid-cols-3 gap-4">
+                <button onclick="quiz.prevFlashcard()" class="bg-gray-800 hover:bg-gray-700 text-white py-4 rounded-xl font-bold transition-all uppercase text-sm f1-font active:scale-95 border border-gray-600">◀ Prev</button>
+                <button onclick="quiz.exitFlashcardMode()" class="bg-red-900/40 hover:bg-red-800/80 text-white py-4 rounded-xl font-bold transition-all uppercase text-sm f1-font border border-red-900 active:scale-95">Box (Exit)</button>
+                <button onclick="quiz.nextFlashcard()" class="bg-blue-600 hover:bg-blue-500 text-white py-4 rounded-xl font-bold transition-all uppercase text-sm f1-font shadow-[0_0_15px_rgba(37,99,235,0.4)] active:scale-95">Next ▶</button>
+            </div>
+        </div>
 
         <div id="result-screen" class="hidden race-card p-8 rounded-2xl shadow-2xl text-center animate-slide-in my-auto max-w-2xl mx-auto w-full">
             <h2 id="result-title" class="f1-font text-4xl mb-2 font-bold text-white italic tracking-tighter">CHECKERED FLAG</h2>
@@ -568,1014 +560,113 @@
     </div>
 
     <script>
-   
       const rawData = `
-      a piece of ～: １つの～
-a couple of ～: ２つの～、２，３の～
-a number of ～: いくつもの～、かなり多くの～
-dozens of ～: 数十もの～、何ダースもの～
-plenty of ～: たくさんの～
-a great/good deal (of ～): たくさん(の～)
-at home: 在宅して、家庭で／くつろいで／精通して
-in time: 間に合って／やがて、そのうちに
-in fashion: 流行して
-on time: 時間通りに［で］
-on duty: 当番で、勤務時間中で
-on schedule: 予定通りで、定時に
-up to date: 最新(式)の
-be aware of ～: ～を知っている、～に気づいている
-be made of ～: ～でできている
-be capable of ～: ～ができる、～の可能性がある
-be afraid of ～: ～を恐れる［怖がる］、～を心配している
-be sure of/about ～: ～を確信している
-be composed of ～: ～から構成されている
-be based on/upon ～: ～に基づいている
-be different from ～: ～とは違っている
-be absent from ～: ～を欠席する
-be engaged in ～: ～に従事している、忙しく～をしている
-be responsible for ～: ～に責任がある
-be married (to ～): (～と)結婚している
-be satisfied with ～: ～に満足している
-be curious about ～: ～を知りたがる、～に好奇心の強い
-be well off: 裕福である
-be likely to do: …しそうである
-be willing to do: …してもかまわない
-be about to do: 今にも…しようとしている
-lead to ～: ～(という結果)を引き起こす、～へと通じる
-refer to ～: ～に言及する／～を参照する、～に問い合わせる
-contribute to ～: ～の一因となる、～に貢献する、～に寄付［寄稿］する
-amount to ～: 総計～になる
-depend on/upon ～: ～に頼る、～しだいである
-focus on ～: ～に集中する、～に焦点を合わせる
-rely on/upon ～: ～に頼る
-get on (～): (公共の乗り物など)に乗る／仲良くやっていく、(なんとか)やっていく
-insist on/upon ～: ～を主張する
-concentrate on ～: ～に集中する
-look for ～: ～を探す［捜す］
-search for ～: ～を探す［捜す］
-prepare for ～: ～の準備をする、～に備える
-think of ～: ～をしようかなと思う、～のことを考える／～を思いつく／～を思い出す
-consist of ～: ～から成り立っている
-complain about/of ～: (苦痛など)を訴える、～について不平を言う
-die of/from ～: ～で死ぬ
-suffer from ～: (病気など)で苦しむ［悩む］
-result from ～: ～から起こる
-graduate from ～: ～を卒業する
-differ from ～: ～と異なる
-recover from ～: ～から立ち直る［回復する］
-hear from ～: ～から便り［電話・伝言］がある
-believe in ～: ～の価値［存在］を信じる、～を信用する
-succeed in ～: ～に成功する
-major in ～: (大学生が)～を専攻する
-abound in/with ～: (場所が)～に富む
-care about ～: ～に気にかける、～に関心を持つ
-bring about ～: ～を引き起こす
-deal with ～: ～を扱う,処理する
-go through ～: ～を通過する／(苦しみなど)を経験する
-give up ～: ～をあきらめる、～捨てる［やめる］
-grow up: 大人になる、(事態などが)生じる
-pick up ～: ～を(車などに)乗せる、～拾う
-set up ～: ～を立てる［建てる］、～を創設する［始める］
-wake up (～): 目が覚める、(人)の目を覚まさせる
-brush up (on) ～: (語学など)をやり直して磨きをかける
-find out ～: (調査などの結果)を見つけ出す、(真相)を知る
-carry out ～: ～を実行する
-point out ～: ～を指摘する
-figure out (～): ～を理解する、～を計算する、～を解く
-turn out (～): ～であることが分かる、(結果的に)～になる／～を産出する／(催しなどに)繰り出す
-fill out ～: (書類など)に書き込む
-pick out ～: ～を選ぶ
-put on ～: ～を(身に)つける、(電気器具ガスなど)をつける
-work on (～): 働き続ける／～に取り組む、～を手がける、～に影響を与える、(薬などが)～に効く
-try on ～: ～を試着する
-turn on (～): (スイッチなど)をつける、(水・ガスなど)を出す、(明かりなどが)つく
-turn off (～): (スイッチなど)を消す、(水・ガスなど)を止める、(明かりなどが)消える
-take off (～): ～を脱ぐ、取り除く／離陸する、(流行・売り上げなどが)急増する／～を休暇としてとる
-get along: 暮らす、(なんとか)やっていく／仲良くやっていく、進む
-get together (～): 集まる、～を集める
-calm down (～): ～を落ち着かせる［静める］、落ち着く［静まる］
-think over ～: ～をよく考える
-keep doing: …し続ける
-take place: 催される、起こる
-play a role/part (in ～): (～で)役割を演じる［果たす］
-make sure (～): (～を)確かめる、確実に～をする
-make sense: 意味をなす、道理にかなう
-make a difference: 違いが生じる、重要である
-make a mistake: 間違いをする
-make progress: 進歩する
-make up one’s mind: 決心する
-do one’s best: 最善を尽くす
-keep one’s promise/word: 約束を守る
-get lost: 道に迷う
-enjoy oneself: 楽しい時を過ごす
-have/take ～ off: ～を休みとしてとる
-pay attention to ～: ～に注意を払う
-take care of ～: ～に気をつける、～の世話をする
-look forward to ～: ～を楽しみに待つ
-ask for ～: ～を求める
-get rid of ～: (厄介なもの)を取り除く
-fall in love with ～: (事・物)を大好きになる、(人)と恋に落ちる
-use to do/be: ～したものだった、昔は～あった
-had better do: …したほうがいい、…すべきだ
-help A with B: AのBを手伝う、AをBで助ける
-prefer A to B: ＢよりＡを好む
-turn A into B: ＡをＢに(質的に)変える
-prevent A from B: AがBするのを妨げる、AをBから防ぐ
-remind A of/about B: AにBを思い出させる
-regard A as B: AをBとみなす
-associate A with B: ＡをＢと結びつけて考える
-inform A of/about B: AにBを知らせる
-after all: 結局(は)、やっぱり
-all the time: いつも、常に
-all the way: ずっと、はるばる
-～ and so on/forth: ～など
-and yet: それにも関わらず
-as ～ as possible/one can: できる限り～
-as a result (of ～): (～の)結果として
-as a whole: 全体として(の)
-as usual: いつものように
-at best: よくても、せいぜい
-at least: 少なくとも
-at (the) most: せいぜい、多くても
-at a time: 一度に
-at once: すぐに／同時に
-at all: (否定文で)まったく／(疑問文で)一体、そもそも／(肯定文で)そもそも、ともかく
-at any rate: とにかく、いずれにしても
-at random: 無作為に、手当たり次第に
-more or less: 多かれ少なかれ、程度の差はあれ／ほぼ、おおよそ
-at times: ときどき
-between you and me: ここだけの話だが、内緒だが
-by hand: 手で
-by mistake: 間違って
-by no means: 全然～ない
-by the way: ところで
-far from ～: ～からほど遠い、～どころではない
-for a while: しばらくの間
-for example/instance: 例えば
-for one thing: 一つには
-in a hurry: 急いで、あせって
-in addition (to ～): (～に)加えて、さらに
-in any case/event: とにかく、いずれにしても
-in detail: 詳細に
-in fact: 実際に／(前言と対照して)(ところが)実際は
-in general: 一般に／(名詞の後に置いて)一般の
-in other words: 言い換えれば、つまり
-in public: 人前で、公然と
-in reality: (ところが)実際には、(想像などではなく)現実に
-in the end: 結局は、ついには
-in the future: 将来は、今後は
-in the long run: 長い目で見れば、結局は
-no doubt: おそらく、たぶん
-no longer ～: もはや～ない
-not always ～: 必ずしも～ではない
-on earth: (疑問詞を強めて)一体全体／(最上級を強めて)世界中で
-on the other hand: 他方では、これに反して
-so far: 今までの所
-sooner or later: 遅かれ早かれ
-these days: 近頃は、この頃は
-according to ～: ～によれば／～に従って、～に応じて
-owing/due to ～: ～のために
-thanks to ～: ～のおかげで
-in spite of ～: ～にもかかわらず
-all over (～): (～の)至る所に［で］、一面に
-apart from ～: ～のほかに／～を除いては
-aside from ～: ～を除いては、～のほかに
-ahead of ～: (時間的に)～より先に、(位置的に)～の前に、～より進歩して
-in search of ～: ～を求めて［探して］
-in preparation: ～の準備中で
-each other: お互い
-so ～ that …: (結果を表して)非常に～なので…する
-A as well as B: BだけでなくAも
-not only A but (also) B: AだけでなくBも
-as if/though …: まるで…するように
-as soon as …: …するやいなや
-Something is wrong with ～.: ～はどこか調子がおかしい［故障している］
-bring up ～: ～を育てる／(問題・話題など)を持ち出す = raise
-call off ～: ～を中止する［取り消す］ = cancel
-carry on (～): (～を)続ける = happen, occur
-come about: 起こる = continue
-come by ～: ～を手に入れる = get, obtain
-come up with ～: (解決策など)を思いつく = devise, invent, conceive
-do away with ～: ～を取り除く、～を廃止する = eliminate, abolish
-find fault with ～: ～にけちをつける、～を非難する = criticize
-get over: ～を克服する、(病気など)から回復する = overcome
-hand in ～: (手渡しで)～を提出する［届ける］ = submit
-learn ～ by heart: ～を暗記する = memorize
-look into ～: ～を調べる = investigate
-look over ～: ～を(ざっと)調べる = examine
-pass away: 死ぬ = die
-put off ～: ～を延期する = postpone
-put together ～: (部品など)を組み立てる、(考えなど)をまとめる = assemble, build
-put up ～: ～を掲げる、～を上げる、～を建てる／～を泊める = raise, lift, erect, construct/accommodete
-put up with ～: ～を我慢する = tolerate, endure, stand
-set about ～: ～を始める = begin, start
-set in: 始まる = begin, start
-take after ～: ～に似ている = resemble
-of importance: 重要な = important
-along with ～: ～と一緒に、～に加えて = besides
-in connection with ～: ～に関連して = concerning, about
-on board (～): (乗り物)に乗って、乗って(た) = aboard
-prior to ～: ～より前で = before
-(every) once in a while: ときどき = sometimes, occasionally
-above all (else): とりわけ、特に = especially, particularly
-all of a sudden: 突然に、不意に = suddenly, abruptly
-(all/just) the same: それでもやはり = nevertheless
-as a (general) rule: 普通は、概して = generally, usually
-as well: ～もまた = too, also
-before long: 間もなく = soon
-by degrees: 徐々に = gradually
-for good: 永久に = forever, permanently
-for the most part: 大体は、大部分は = mostly, generally
-from time to time: ときどき = sometimes, occationally
-in advance: 前もって = beforehand
-in all: 全部で = altogether
-in particular: 特に =especially, particularly
-on occasion(s): ときどき = sometimes, occationally
-on purpose: わざと、故意に = intentionally, purposely
-over and over (again): 何度も繰り返し = repeatedly
-right away: 今すぐ、直ちに = immediately
-agree to ～: (提案・計画・条件など)に同意する
-agree with ～: (人が)(人・考えなど)に同意する、(気候・食物などが)～に合う、～に一致［適合］する
-apply for ～: (仕事・許可など)を申し込む［志願する］
-apply to ～: ～に当てはまる／(人・場所・組織)に申し込む
-remember doing: …したのを覚えている
-remember to do: 忘れずに…する
-catch up with/to ～: (遅れた状態から)～に追いつく
-keep pace with ～: ～に遅れずについていく
-keep up with ～: ～に遅れずについていく
-leave ～ alone: ～をそのままにしておく、～に干渉しない
-let alone ～: ～は言うまでもなく
-correspond to ～: ～に一致する、～に相当する
-correspond with ～: ～とやりとりを交わす、～と文通する
-hit on/upon ～: ～を思いつく、～に出くわす
-occur to ～: ふと(人)の心に浮かぶ
-dawn on ～: (考えなどが)(人)にわかり始める［思い浮かぶ］
-make the best of ～: (不利な状況で)～を最大限に利用する［善処する］
-make the most of ～: ～を最大限に利用する
-lay off ～: ～を一時解雇する
-lay out ～: ～を並べる、～を設計する
-be concerned about/for ～: ～を心配している
-be concerned with/in ～: ～に関係している
-be free from/of ～: ～がない
-be free to do: 自由に…できる
-be familiar to ～: (人)によく知られている
-be familiar with ～: (物事)をよく知っている
-be true of ～: ～に当てはめる
-be true to ～: ～に忠実である
-be tired from/with ～: ～で疲れる
-be tired of ～: ～に飽きる［うんざりしている］
-be bound for ～: ～行きである
-be bound to do: きっと…する、…する責任がある
-be anxious about ～: ～を心配している
-be anxious to do: …したがる
-～ to come: (名詞の後に置いて)将来の～、来たるべき～
-～ to go: (名詞の後に置いて)あと～、残りの～、持ち帰り用の～
-anything but ～: 全然～ではない、～どころではない
-nothing but ～: ただ～だけ、～にすぎない
-at first: 最初は
-for the first time: 初めて
-in the way (of ～): (～の)邪魔になって
-on the way (to ～): (～への)途中で
-by now: 今はもう、今頃は
-for now: 今のところは、当分は
-on the contrary: それどころか、それに反して
-to the contrary: それと反対の［に］
-in the air: 未決定で、空中で［の］、(雰囲気などが)感じられて
-on the air: 放送中の［で］
-by chance: 偶然に
-by any chance: (疑問文で)もしかして
-as a matter of course: 当然のこととして
-as a matter of fact: 実を言うと、実際は
-at a distance: ある距離を置いて
-in the distance: 遠方に［で］
-inside out: 裏返して、ひっくり返して
-upside down: 逆さまに、ひっくり返って
-provide A with B: AにBを供給する
-supply A with B: AにBを供給する
-mistake A for B: AをBと間違える
-take A for B: AをBだと(誤って)思う［間違える］
-look on/upon A as B: AをBと見なす
-think of A as B: AをBと見なす
-distinguish A from B: AをBと区別する
-tell A from B: AとBを区別する
-participate in ～: ～に参加する
-take part in ～: ～に参加する
-compensate for ～: ～の埋め合わせをする、～を補償する
-make up (～): ～を構成する、～を作り上げる／仲直りをする／～の埋め合わせをする
-care for ～: ～の世話をする／～を好む、～を望む
-look after ～: ～の世話をする
-show up (～): (予定の所に)現れる／目立つ、～を目立たせる
-turn up (～): 現れる、起こる／(ガス・音量など)を大きくする、～を探し出す
-consist in ～: ～にある
-lie in ～: ～にある
-give in (～): 屈服する／～を提出する
-give way (to ～): (～に)屈服する、(～に)道を譲る
-stand out: 際立つ、目立つ
-stick out: 突き出る、目立つ
-cling to ～: ～にくっつく、～に固執［執着］する
-stick to ～: (主義・決定など)を堅持する、～にくっつく
-count on/upon ～: ～に頼る、～を当てする
-rest on/upon: ～に基づく、～に頼る
-look out for ～: ～に気をつける
-watch out for ～: ～に気をつける
-hand over ～: ～を引き渡す、～を手渡す
-turn over ～: ～を引き渡す、～を譲る／～をひっくり返す、(ページなど)をめくる、ひっくり返る
-date back to ～: ～にさかのぼる、～に始まる
-date from ～: ～から始まる、～にさかのぼる
-put aside ～: ～を蓄える、～をわきに置く、～を取っておく
-set aside ～: ～を蓄える、～を取っておく、～をわきに置く
-sit up: (寝ないで)起きている／(寝た状態から)上半身を起こす／きちんと座る
-stay up: (寝ないで)起きている
-hold back ～: ～を制止する、(真相など)を隠す
-keep back ～: (真相など)を隠す、～を制止する
-feel sorry for ～: ～を気の毒に思う、～に同情する
-take/have pity on ～: ～に同情する
-sympathize with ～: ～に同情する
-take pride in ～: ～を誇り［自慢］に思う
-pride oneself on ～: ～を誇り［自慢］に思う
-surrender to ～: ～に屈する
-yield to ～: ～に屈する、～に道を譲る
-be essential to ～: ～にとって不可欠である
-be indispensable to/for ～: ～にとって不可欠である
-be equal to ～: ～に等しい
-be equivalent to ～: ～に等しい
-be apt to do: ～しがちである
-be inclined to do: ～する傾向がある、～したい気がする
-in a sense: ある意味では、ある点で
-in a way: ある意味では、ある点で
-first of all: まず第一に
-in the first place: まず第一に
-back and forth: 行ったり来たり、前後［左右］に
-up and down: 行ったり来たり、上下に
-at present: 現在は、目下
-at the moment: (現在時制で)現在は、(過去時制で)ちょうどその時
-in a word: 要するに、つまり
-in short: つまり、手短に言えば
-generally speaking: 一般的に言えば
-on the whole: 全体的には、概して
-all in all: 全体的には、概して
-in principle: 理論的に(は)、原則的に(は)
-in theory: 理論上は
-at all cost(s)/any cost: ぜひとも
-by all means: ぜひとも、必ず／(承諾の返事として)ぜひどうぞ
-as it were: いわば
-so to speak: いわば
-for one’s (own) part: ～としては、～に関する限りは
-on one’s part: ～の側での、～としては
-for the present: 当分の間(は)、差し当たり
-for the time being: 当分の間(は)、差し当たり
-close/near at hand: (距離・時間的に)すぐ近くに
-(just) around the corner: (距離・時間的に)すぐ近くに
-for all ～: ～にもかかわらず
-with all ～: ～にもかかわらず
-as for ～: (人・物)～について言えば、～に関する限り
-as to ～: (物)～に関しては
-not to mention ～: ～は言うまでもなく
-to say nothing of ～: ～は言うまでもなく
-be dependent on/upon ～: ～に依存している
-be independent of ～: ～から独立している
-in order: 整頓されて、順調で、適切で
-out of order: 故障して、順序が狂って
-look down on/upon ～: ～を見下す
-look up to ～: ～を尊敬する
-do with ～: (couldを伴って)～があればありがたい／(受動態で)～をすませた、縁を切った／(whatの疑問・否定文で)を処理する
-do without ～: ～なしですます
-in/within sight: 見えて、視界に入って
-out of sight: 見えなくて、視界から消えて
-at one’s ease: くつろいで
-ill at ease: 不安で、落ち着かないで
-act on/upon ～: ～に取り組む、～に作用する／(命令・信念など)に従って行動する
-break in ～: 押し入る、口を挟む／～を慣らす
-break out: (火事・戦争などが)起こる／(汗・吹き出物などが)出る、急にしだす
-break up ～: ばらばらになる、～をばらばらにする／(人が)別れる、(関係などが)終わる、～を終わらせる
-call for ～: ～を必要とする、～を求める／(人)を誘い［迎え］に行く、(物)を取りに行く
-call on/upon ～: (人)を訪問する／～に要求する
-come across ～: ～を偶然見つける、～に偶然出会う／(考えなどが)(相手に)伝わる［理解される］
-come to ～: ～に達する、～に来る／(～to do)…するようになる／意識を回復する、正気に戻る
-give out ～: ～を配る、～を発する／(供給物・力などが)尽きる［なくなる］
-go by ～: (時などが)たつ、通り過ぎる／～の名で通る［知られる］、～によって行動［判断］する
-go off: 出かける、去る、(電灯などが)消える／(仕掛けが)作動する、(爆薬が)爆発する、(銃などが)発射される
-go on ～: (状況などが)続く、(時間が)過ぎる／(進行形で)起こる、行われる／(旅行など)に出かける
-go out: 出かける／(灯火などが)消える、気絶する、死ぬ
-go over ～: ～に詳細に目を通す、～を調べる／～を復習する、～を繰り返す
-go with ～: ～と付き合う、～と一緒に行く／～に似合う
-hold out ～: (手など)を差し出す／(希望など)を抱かせる、持ちこたえる［耐える］
-hold up ～: ～を持ち上げる、～を支える、持ちこたえる／～を遅らせる／～に強盗に入る
-live on ～: ～を常食にする／(～の収入・金額)で生活する／生き続ける
-look to ～: ～の法を見る、～に気をつける／～に頼る、～を当てにする
-look up ～: (辞書などで)～を調べる／(人)を訪ねる／(景気などが)上向く［好転する］
-put out ～: (火・明かりなど)を消す／～を出す
-settle down: 定住する、落ち着く／(腰を据えて)始める
-stand by ～: 傍観する、待機する／～を支持［擁護］する、(約束など)を守る
-stand for ～: ～意味する、～の略である／(否定文・疑問文で)～を許容する、を我慢する
-take in ～: ～を取り入れる、～を理解する／～をだます／～を見物をする
-take on ～: ～を引き受ける、～を雇う／(様相・色・性質など)を呈する［帯びる］
-take to ～: (習慣的に)～を始める、～にふける
-take up ～: (場所・時間)を取る、～を取り上げる／(仕事・趣味など)を始める
-turn down ～: ～を却下［拒絶］する／(音量・火力など)を小さくする
-turn in ～: ～を提出する／～を引き渡す、～を返却する
-make for ～: ～のほうへ進む／～に寄与する［役立つ］
-make out ～: (通例canを伴い、否定・疑問文で)～を理解する／(通例canを伴って)～を見分ける／(書類など)を作成する
-meet with ～: ～を受ける、～を経験する／～と(約束して)会う、～と会見する
-provide for ～: ～を扶養する／～に備える、(法律が)～を規定する
-put down ～: ～を置く／～を鎮める［抑える］
-run over ～: (車が)～をひく／(～から)あふれる
-set out ～: 出発する／～し始める／～を並べる、～を設計する
-be due to do: ～のため［結果］である／～する予定である
-up to ～: ～まで／～次第である、～の責任である／(悪いこと)をしようとしている
-at large: (名詞の前に置いて)一般の、全体としての／逃走中で、逮捕されないで
-in effect: 事実上、実際は／(法律などが)実施されて
-all but ～: ～も同然、ほとんど～／～以外すべて
-at length: 詳細に、長々と／とうとう、ついに
-next to ～: (場所・位置)～の次の［に］／(否定を表す語の前に置いて)ほとんど～
-on end: 連続して／直立して、垂直にして
-by way of ～: ～経由で／～として、～のつもりで(の)
-add to ～: ～を増やす
-adapt to ～: (環境など)に順応する［慣れる］
-object to ～: ～に反対する
-admit to ～: ～を認める［告白する］
-conform to/with ～: ～と一致する、～に従う［合わせる］
-resort to ～: (手段など)に訴える［頼る］
-keep to ～: ～に沿って進む、～から離れない、～に従う
-get to ～: ～に到着する／～できる、～するようになる
-adhere to ～: (主義・規則など)に忠実に従う、～にくっつく
-reflect on/upon ～: ～を熟考［反省］する
-decide on/upon ～: ～を(どれにするか)決める、(複数の選択肢から)～に決める
-fall on/upon ～: (責任・仕事などが)～に降りかかる、(休日などが)～に当たる
-feed on ～: ～を常食［餌］にする
-run into ～: ～に偶然出会う、～を偶然見つける、～にぶつかる
-break into ～: ～に侵入する／急に～をしだす
-enter into ～: (契約など)を取り結ぶ、(議論など)を始める
-burst into ～: 急に～をしだす、突然～に入る
-dispose of ～: ～を処分する、～を平らげる
-approve of ～: ～に賛成する、～を承認する
-boast of/about ～: ～を自慢する、～を誇らしげに話す
-become of ～: ～に由来する、～から出ている
-derive from ～: ?に由来する、～から出ている
-aim at ～: ～を目指す、～を狙う
-interfere with ～: ～の邪魔をする、～を妨げる
-part with ～: (物)を(しぶしぶ)手放す
-long for ～: ～を切望する
-send for ～: (人)を呼ぶ、(物)を取り寄せる
-go about ～: ～に取りかかる、～に精を出す
-run across ～: ～を偶然見つける、～に偶然で会う／～を走って横切る
-end up: 最後には～になる
-use up ～: ～を使い果たす
-sum up ～: (～を)要約する、～を合計する
-clear up ～: (天候が)晴れる、(疑念・不明点など)を明らかにする
-tie up ～: (人)を拘束する、～を固く縛る、提携する
-cheer up ～: 元気づく、～を元気づける［応援する］
-blow up ～: 爆発する、かっとなる、～を爆破する
-call up ～: (～に)電話をかける、(記憶・勇気など)を呼び起こす
-shut up ～: 話をやめる、～を散らせる
-step up ～: 近づく、(壇上などに)上がる／(量・速度など)を増す、(活動など)を促進する
-cut down/back (on) ～: ～(の量)を減らす、～を切り詰める
-slow down ～: (～の)速度を落とす、ペースが落ちる
-break down ～: ～を分離する、～を壊す／故障する、取り乱す、肉体的［精神的］に参る
-hand down ～: ～を(子孫［後世］に)伝える
-take down ～: ～を書き留める、(建築など)を取り壊す
-burn down ～: ～を全焼させる、(建物が)全焼する
-come out: 現れる、ばれる、出版される
-run out: 使い果たす、尽きる
-speak out/up: はっきり［思い切って］話す
-drop out: 脱落する、中途退学する
-sort out ～: ～を整理する、～を処理する
-wear out ～: ～をすり減らす［疲れ果てさせる］、すり減らす
-roll out ～: (新製品)を製造［発売］する、～を転がして出す、転がり出る
-iron out ～: (問題など)を解決［調節する］
-set off ～: 出発する、～を引き落とす
-show off ～: (～を)見せびらかす
-keep off ～: ～を近づけない、～に近づかない、～を慎む
-give off ～: (光・音・においなど)を発する
-break off ～: (～を)急にやめる、～を切り離す
-take over ～: (～を)引き継ぐ、～を支配する
-put in ～: (物・言葉など)を差し入れる［加える］、(設備など)を取り付ける／(労力・時間・金など)を注ぎ込む
-drop in: (口調で)ちょっと立ち寄る
-cut in: (人・車が)割り込む
-pass on ～: (物・情報など)を次に回す［伝える］
-give away ～: (秘密など)を漏らす、～をただでやる、～を配る
-adjust (A) to B: (Aを)Bに合わせて調節する
-compare A with/to B: AとBを比較する、AをBにたとえる
-expose A to B: AをBにさらす
-leave A (up) to B: AをBに任せる、AをBに残す
-attach A to B: AをBに取りつける［付与する］
-attribute A to B: AをBのせい［結果］と考える
-owe A to B: A(恩・義務など)をBに負っている、A(金)をBに借りている
-confine A to B: AをBに限定する、AをBに閉じ込める
-liken A to B: AをBにたとえる
-keep A from B: AにBをさせない、AをBから守る
-discourage A from B: A(人)にBを思いとどまらせる
-forbid A from B: A(人)にBを禁止する
-prohibit A from B: A(人)にBを禁止する
-order A from B: BにAを注文する
-substitute A for B: Bの代わりにAを使う
-exchange A for B: AをBと交換する
-blame A for B: BのことでAを非難する、BをAのせいにする
-punish A for B: BのことでAを罰する
-forgive A for B: BのことでAを許す
-deprive A of B: AからBを奪う
-rob A of B: (暴力・脅迫などで)AからBを奪う
-cure A of B: AのBを治す、A(人)のB(悪癖など)を取り除く
-accuse A of B: BのことでAを非難［告訴］する
-suspect A of B: BについてAを疑う
-assure A of B: A(人)にB(物・事)を請け合う［保証する］
-transform A into/to B: AをBに変える［変質させる］
-talk A into B: A(人)を説得してBをさせる
-present A with B: AにBを贈る［与える］
-diagnose A as B: AをBと診断する
-strike A as B: A(人)にBの印象を与える
-congratulate A on/for B: BのことでAを祝う
-name A after B: AをBにちなんで名づける
-make an effort/efforts: 努力する
-make way: 道をあける
-live/lead a ～ life: ［～］の生活をする
-make/earn a/one’s living: 生計を立てる
-take one’s place: いつもの席に着く、特定の地位を占める／～に取って代わる
-take turns: 交代でする
-take a chance/chances: 思い切ってやってみる、賭ける
-take shape: (はっきりした)形をとる
-take/have a seat: 着席する
-take a risk/risks: (あえて)危険を冒す、賭ける
-shake hands: 握手する
-change hands: 持ち主が変わる
-have a say (in ～): (～に)発言権［発言力］を持つ
-have/got one’s (own) way: 思い通りにする
-keep/hold one’s temper: 冷静さを保つ
-take advantage of ～: ～を利用する、～につけ込む
-take control of ～: ～を制御［管理・支配］する
-make use of ～: ～を利用する
-make fun of ～: ～をからかう
-make friends with ～: ～と親しくなる
-make much of ～: ～を重要視する、(否定文で)～を理解する
-have difficulty (in) doing: ～するのが困難である、苦労しながら～する
-have access to ～: ～を利用できる、～に近づける
-have an influence/effect on ～: ～に影響を与える
-have a liking for ～: ～を好む
-give rise to ～: ～を引き起こす［生む］
-give birth to ～: ～を産む、～の原因になる
-find one’s way to ～: ～へたどり着く、～まで道を探しながら進む
-keep an eye on ～: ～に気を付けている、～から目を離さない
-fall victim to ～: ～の犠牲［餌食］になる
-catch sight of ～: ～を見つける［見かける］
-put emphasis/stress on/upon ～: ～を強調［重視］する
-be related to ～: ～と関係がある、～と婚姻関係がある
-be similar to ～: ～に似ている
-be subject to ～: ～を受けやすい、～に服従している
-be superior to ～: ～より優れている
-be sensitive to ～: ～に敏感である
-be accustomed to ～: ～に慣れている
-be contrary to ～: ～に反している
-be indifferent to/toward(s) ～: ～に無関心［無頓着］である
-be preferable to ～: ～より好ましい［優れている］
-be dedicated to ～: (仕事・目的など)に打ち込んでいる
-be peculiar to ～: ～に特有である
-be prone to ～: ～になりやすい
-be identical to/with ～: ～と同じ［同一］である
-be involved in ～: ～に携わっている［関係している］、～に熱中している
-be absorbed in ～: ～に熱中している
-be lacking in ～: ～に欠けている
-be versed in ～: ～に精通［熟達］している
-be abundant in ～: ～が豊富である
-be busy with ～: ～で忙しい
-be popular with/among ～: ～に人気がある
-be equipped with ～: ～を備えている
-be content/contented with ～: ～に満足している
-be confronted with/by ～: (困難・問題など)に直面している
-be acquainted with ～: ～に精通している、～と知り合いである
-be characteristic of ～: ～に特有である、いかにも～らしい
-be worthy of ～: ～に値する［ふさわしい］
-be ignorant of ～: ～を知らない
-be confident of/about ～: ～を確信している
-be considerate of/to ～: ～に対して思いやりのある
-be guilty of ～: ～について有罪である、～を犯している
-be convinced of ～: ～を確信している
-be tolerant of ～: ～に対して寛大である
-be wary of ～: ～に用心深い
-be suitable for/ to ～: ～に適している、(目的など)に合っている
-be grateful (to A) for B: Bのことで(Aに)感謝している
-be particular about/over ～: ～についてやかましい［気難しい］
-come down with ～: (病気)にかかる
-come into being/existence: 出現する、生まれ出る
-come true: (夢・予言などが)実現する
-do ～ good: (人)のためになる［役に立つ］
-get in touch (with ～): (～と)連絡を取る
-go blind: 失明する
-have A in common (with B): (Bと)共通にAを持っている
-keep/bear ～ in mind: ～を心に留めておく［忘れない］
-look back on/upon/to ～: ～を回顧［回想］する
-make it: 成功する、うまくやる、間に合う、出席する
-put into practice/operation: ～を実行［実施］する
-sign up for ～: (受講など)の届け出をする、～に加わる
-take ～ by surprise: ～を驚かす、～の不意を打つ
-in terms of ～: ～の観点から、～に換算して
-in contrast to/with ～: ～と著しく違って、～と対照をなして
-in danger of ～: ～の危険があって
-in need of ～: ～を必要として
-in response to ～: ～に応じて［答えて］
-in favor of ～: ～に賛成して、～のほうを選んで
-in (the) face of ～: ～に直面して、～にもかかわらず
-in charge of ～: ～を預かって［管理して］
-in relation to ～: ～と比べて、～に関連して
-in place of ～: ～の代わりに
-in the presence of ～: ～のいるところ［面前］で
-in honor of ～: ～に敬意を表して、～のために
-in (the) light of ～: ～から見て、～を考慮して
-in harmony with ～: ～と調和［一致］して
-in exchange for ～: ～と交換に
-for the sake of ～: ～のために
-for fear of ～: ～を恐れて
-for lack/want of ～: ～がない［不足している］ために
-at the expense of ～: ～を犠牲にして
-at (the) sight of ～: ～を見て
-at the mercy of ～: ～のなすがままになって
-as oppose to ～: ～ではなく、～とは対照的に
-by means of ～: ～を用いて、～によって
-by/in virtue of ～: ～のおかげで、～によって
-on/in behalf of ～: ～を代表して、～のために
-on a/the charge of ～: ～の容疑［罪］で
-with/in regard to ～: ～に関して(は)
-in part: 一部には、幾分(かは)
-in turn: 徐々に、(立ち代わって)次に(は)
-in place: あるべき場所に、きちんと整って、用意ができて
-in practice: 実際には
-in demand: 需要があって、必要とされて
-in the meantime/meanwhile: その間(に)、一方で、話は変わって
-in all likelihood: 十中八九、おおかた
-at work: 職業で、仕事中で[の]／作用して、運転［作動］中で[の]
-at risk: 危険な状態で
-at a loss: 途方に暮れて、困って、損をして
-at first sight: 一見したところでは、ひと目で[の]
-at heart: 心の底では、本当は
-at intervals: 時折、あちこちに
-on the/an average: 平均して
-on a ～ basis: ～の基準[原則]で
-on a ～ scale: ～な規模で[の]
-on display: 陳列中で[の]、展示して
-on the increase: 増加中で
-on (one’s) guard: 警戒して
-to ～ extent/degree: ～の程度に
-to one’s surprise: ～が驚いたことには
-to the point: 要を得た、適切な
-to make matters/things worse: さらに悪いことに
-to one’s advantage: (人)に都合がよい[よく]、(人)に有利な[に]
-from ～ on/onward(s): ～から以後は
-from ～ point of view: ～の視点から(は)
-for sure/certain: 確かに
-under way: (計画などが)進行中で
-under construction: 建築[工事]中で
-of late: 最近、近ごろ
-of one’s own accord/free will: 自分の意志で、自発的に
-without fail: 必ず、間違いなく
-behind the times: 時代遅れの[で]
-beyond description: 言葉では表現できないほどの[に]
-out of breath: 息切れして
-out of character: (その人の)性格に合わない[調和しない]、役に不向きな
-no matter how/what/when, etc …: どんなに[何が・いつなど]…でも
-what we call ～: いわゆる～
-what ～ is: 現在の～
-～ will do: ～は役に立つ[用が足りる]
-may well do: おそらく…するだろう、…するのはもっともだ
-might (just) as well do: …するのも同じだ、(気は進まないが)～してもよい、(どうせなら)…するほうがいい
-cannot ～ too …: いくら～してもしすぎることはない
-the last ～ to do: 最も…しそうにない～
-have A to do with B: ＢとＡの関係がある
-to tell (you) the truth: 実を言えば
-needless to say: 言うまでもなく
-feel like doing: …したい気がする
-be used to doing: …することに慣れている
-cannot help doing: …せずにはいられない、…せざるを得ない
-come close/near to doing: もう少しで…しそうになる
-with a view to doing: …する目的で
-joking/kidding aside: 冗談はさておき
-catch ～ doing: (人)が…しているところを見つける[捕らえる]
-speaking/talking of ～: ～と言えば
-judging from/by ～: ～から判断すると
-that is (to say): すなわち、つまり
-in itself: それ自体では、本来は
-to oneself: 自分だけ(が使うの)に／自分自身に、心の中に[で]
-one after another: 次々に
-none other than ～: ほかならぬ～、まさに～
-would/had rather do (than ～): (～するよりも)むしろ…したい
-as many/much as ～: ～もの数[量]の、～と同数[量]の
-as good as ～: ～も同然、ほとんど～
-as ～ as any: 誰[どれ]にも劣らず～
-all the + 比較級: ますます～、それだけいっそう～
-that much + 比較級: (口語で)それだけいっそう～
-much/still less ～: (否定文中で)まして～はない
-what is more: さらに、おまけに
-know better (than to do): (…しないだけの)分別がある、(…するほど)ばかではない
-Couldn’t be better.: 最高です、これ以上良い状態はあり得ない
-worse still/yet: いっそう悪いことに
-to the best of one’s knowledge: (人)の知る限り(では)
-not ～ (in) the least: まったく～ない
-to the full/fullest: 心ゆくまで、十分に
-by far: はるかに、ずっと
-provided (that) …: もし…ならば
-every/each time …: …するたびに
-the moment/minute …: …するとすぐに
-when it comes to ～: ～のこととなると、～をする段になると
-as it is: (通例、仮定法的な表現の直後で)実際のところは／(事物が)あるがままの(に)
-as/so far as ～ be concerned: ～に関する限り
-as follows: 次のとおり
-as is often the case (with～): (～に関して)よくあることだが
-as ～ go: 一般の～と比べると、～としては
-if only …: …でありさえすれば／(現在・未来の願望を表して)…でさえあればなあ
-if it were not for ～: もし～がなければ
-(in) the way …: …から判断すると、…のように、…のやり方で
-～ to death: 死ぬまで～、ひどく～
-with ease: 容易に
-believe it or not: まさかと思うような話だが
-not all that ～: それほど～ではない
-the 比較級 ～, the 比較級 …: ～であればあるほど、いっそう…だ
-(Just) As ～, so …: ちょうど～であるように…だ
-(It is) No wonder (that) …: …なのは当然だ
-It happens that …: たまたま…だ、折良く[運悪く]…だ
-(The) Chances are (that) …: ひょっとしたら[たぶん]…だろう
-There is no doing: …することはできない
-not so much A as B: AというよりむしろB
-hardly ～ when/before …: ～するかしないかのうちに…する
-never do without ～: …すれば必ず～する
-It goes without saying that …: …なのは言うまでもない
-(It is) True ～, but …: 確かに～だが、…だ
-It is not long before …: …するのに長くはかからない、間もなく…する
-It is (high) time (that) …: (とっくに)…してよいころだ
-no sooner ～ than …: ～するやいなや…する
-It is no use doing: …しても無駄である
-It is not until ～ that …: ～になって初めて…する
-A is to B what C is to D: AのBに対する関係はCのDに対する関係に等しい
-not so much as do: …さえしない
-Nothing is more A than B.: BほどAなものはない
-the former A, the latter B: 前者はA、後者はB
-A is one thing, and B is another: AとBとは別の物である
-All one has to do is (to) do: (人は)はただ…すればよい
-Suffice (it) to say that …: …と言えば十分である
-be to do: (予定・運命)…することになっている／(義務)…すべきだ／(意図・目的)…するつもりだ／(可能)…できる
-be forced to do: やむなく…する
-be supposed to do: …することになっている、(世間で)…と考えられている
-be to blame (for ～): (～に対して)責めを負うべきである[責任がある]
-be entitled to ～: ～の資格がある
-tend to do: …する傾向がある、…しがちである
-happen to do: 偶然…する
-manage to do: なんとか…する[やり遂げる]
-can afford to do: (経済的・時間的に)…する余裕がある
-bother to do: わざわざ…する
-come to an end/a close: 終わる
-go so far as to do: …しさえする
-have no (other) choice but to do: …するよりほかに仕方がない
-spend ～ (in) doing: …して(時間・期間)を過ごす
-make a point of doing: 必ず…するよう努力する、…することを重視する
-remain to be seen: (結果などは)未定である
-bring oneself to do: …する気持ちになる
-take the trouble to do: わざわざ[労を惜しまず]…する
-leave nothing to be desired: 申し分ない
-in order/so as to do: …するために
-in that …: …の点で、…のゆえに
-as/so long as …: (条件・時間的限度)…である限り
-see (to it) that …: …するように取り計らう[気をつける]
-so that ～ can do: ～が…できるように
-by the time …: …までに(は)
-～, so (that) …: ～だ、その結果…だ
-now that …: …である以上、今はもう…なので
-in case …: [主に米]もし…ならば／[主に英]…するといけないから、…に備えて
-given (that) …: …を考慮すれば、…なので
-even as …: まさに…するときに
-if any: もしあるとしても、もしあれば
-on (the) condition (that) …: …という条件で、…ならば
-lest ～ (should) …: ～が…しないように、～が…するといけないから
-what with A and B: AやらBやらで
-A, and B at that: Aだ、その上Bでもある
-inasmuch/in as much as …: …だから
-just about: ほぼ、かろうじて
-go ahead: 先に行く、(ためらわず)進む
-check out ～: (魅力的なので)～を見てみる、～を調査[点検]する／(図書館などから)～借り出す
-hold on: 持ちこたえる、頑張る／待つ、電話を切らずにいる／しっかりつかむ
-hang up ～: (電話を)切る、(衣服など)を掛ける、～を中断する
-give ～ a try: ～を試してみる
-give ～ a hand: ～に手を貸す
-call back ～: ～に折り返し電話する、～に電話をかけ直す、～を呼び戻す
-from scratch: 最初から
-see ～ off: ～を見送る
-hold one’s breath: 息を止める、(期待して)息をひそめて待つ
-at/behind the wheel: (車・船などを)運転して
-having said that: そうは言ったものの
-on the dot: (口語で)時間ちょうどに、きっかりに
-ask ～ a favor: ～にお願いをする[頼む]
-drive at ～: (whatを目的語に)～のつもりである
-lose (one’s) face: 面目を失う
-before one knows it: あっという間に
-stick around/about: (口語で)(帰らずに)そこらで待つ
-call it a day: その日の仕事を終える
-have (a) good command of ～: (外国語など)を自由に使いこなす力がある
-keep one’s fingers crossed: (幸運[成功]を)祈る
-pay a visit (to ～）: (～を)訪問する
-serve ～ right: ～にとって当然の報いである
-go to the polls: 投票に行く
-take office: (公職に)就任する
-turn a blind eye to ～: ～を見て見ぬふりをする
-last but not least: 最後になったが
-know ～ by sight: ～の顔を(見て)知っている
-pull ～’s leg: (口調で)～をからかう[かつぐ]
-the bottom line: (口語で)要点、(決算書の最下行の)数字、最終結果
-have/take a look (at ～): (～を)見る
-What ～ like?: ～はどんなものか
-What ～ for?: どうして～か何の目的で～か
-have no idea: 見当がつかない
-could use ～: (口語で)～があればありがたい、～が欲しい
-How come SV?: どうして…か [= Why(…)?]
-take one’s time: (時間をかけて)ゆっくりやる、自分のペースでやる
-take it easy: のんびり構える
-My pleasure.: (お礼の言葉に対して)どういたしまして
-make oneself understood: 自分の言うことを相手に分からせる
-see much of ～: ～によく会う
-think again: 考え直す、考えを変える
-help oneself to ～: ～を自由に取る
-I’m afraid not.: 残念ながらそうではないようです
-treat A to B: A(人)にB(食事など)をおごる
-be fed up with ～: ～にうんざりしている
-come to think of it: 考えてみると、そういえば
-think much/highly of ～: ～を高く評価する、～を尊敬[尊重]する
-Legend has it (that) …: 伝説によると…ということだ
-Here we are.: さあ着いた
-hit it off (with～): (人と)仲良くなる[意気投合する]
-watch one’s step: 足元[言動]に注意する
-give one’s regard to ～: (伝言・手紙などで)～によろしくと伝える
-You’re kidding (me).: 冗談でしょうまさか
-be susceptible to ～: ～の影響を受けやすい、～に感染しやすい
-be at odds (with ～): (～と)食い違っている、(～と)反目し合っている
-be committed to ～: ～に献身する、～と固く約束する[誓う]
-be here to stay: 定着している
-be liable to do/to ～: …しがちである/～にかかりやすい
-be intent on/upon ～: ～に懸命[熱心]である
-be no match for ～: とても～にはかなわない
-be vulnerable to ～: (病気・誘惑など)に弱い、(非難・攻撃など)を受けやすい
-be eligible for ～: ～の資格がある
-be worth doing: …する価値がある
-be out to do: …しようと狙っている
-be all ears: 一心を耳に傾けている
-be beside oneself (with ～): (～で)我を忘れる、(～に)夢中である
-be cut out to be ～: ～に向いている[適している]
-be (all) the rage: (大)流行している
-account for ～: ～の説明となる、～の理由を説明する／(割合など)を占める
-allow for ～: ～を可能にする、～を考慮に入れる
-settle for ～: (不十分ながら)～で我慢する
-yearn for ～: ～を恋しがる、～にあこがれる
-count for ～: ～の価値[重要性]を持つ
-cope with ～: ～をうまく処理する、～に対処する
-coincide with ～: ～と一致する、～と同時に起こる
-comply with ～: (規則・命令など)に従う[応じる]
-dispense with ～: ～なしですます
-attend to ～: ～を処理する、～に注意を払う、～の世話をする
-aspire to ～: ～を熱望する
-submit to ～: ～に屈する[服従する]
-consent to ～: ～に同意する
-deal in ～: (商品)を取り扱う、(仕事など)に従事する
-persist in ～: ～に固執する、～をやり直す
-indulge in ～: 思う存分～をする、(快楽など)にふける
-embark on/upon ～: (事業・計画など)に乗り出す、～を始める
-dwell on/upon ～: ～を詳しく述べる[書く]／～をくよくよ[つくづく]考える、～に拘る
-tell on/upon ～: ～に(悪く)影響する、～にこたえる
-refrain from ～: ～を慎む
-discriminate against ～: ～を差別する
-abide by ～: (法など)に従う、(約束など)を守る
-work out ～: (問題などが)うまくいく、～を計画する、～を解決する、～の答を出す／運動する
-rule out ～: (可能性など)を排除する、～を認めない
-single out ～: ～を(つだけ)運び出す
-pass out: 気絶する、酔いつぶれる
-miss out on ～: (好機など)を逃す、～を取り逃す
-wind up ～: ～を終わりにする、終わる
-pull up ～: ～を引き抜く[引き上げる]、(いすなど)を引き寄せる／(車などが)止まる、(車など)を止める
-throw up ～: ～をさっと上げる、～を投げ上げる／(食べた物を)吐く、～を吐く
-round up ～: ～を寄せ集める、～を検挙[逮捕]する
-catch on: (ファッション・考えなどが)人気が出る[流行する]／理解する、気づく
-get away with ～: (罰を受けずに)～をうまくやる／～を持ち逃げする
-shy away (from ～): (～を)避ける[敬遠する]
-hang around/about/round: ぶらつく、付き合う
-get down to ～: (仕事・問題など)に本気で取り掛かる
-let down ～: ～を失望させる
-pull off ～: [口語で](困難なこと)をやってのける
-follow through (on/with ～): (～を)やり遂げる
-find oneself ～: (気がつくと)～にいる[～である]
-make do (with～): (代用品などで)間に合わせる
-make good ～: 成功する／(約束など)を果たす、(損害など)を償う
-make (both) ends meet: 収入内でやりくりする
-make believe (that …): (…という)ふりをする
-take ～ for granted: ～を当然のことと思う
-take ～ into account: ～を考慮に入れる
-take hold of ～: ～をつかむ、～を捕まえる
-take notice (of～): (～に)注目する、(～に)気づく
-take effect: (法律などが)施行[実施]される／(薬などが)効く
-take pains: 骨を折る、努力する
-keep track of ～: (記録するなどして)～を把握する、～の跡をたどる
-keep ～ company: (人)と一緒にいる、(人)の相手をする、(話など)に付き合う
-keep abreast of/with ～: (時勢など)に遅れずついて行く
-let go of ～: ～を手放す
-live up to ～: (期待など)に添う[恥じない行動をする]、(義務など)を果たす
-look ～ in the eye(s): ～の目を正視する
-hold true: 当てはまる、有効である
-come to terms with ～: ～と折り合いがつく、(あきらめて)～を受け入れる
-come to light: 明るみに出る、現れる
-come of age: (法律的に)成人になる
-come in handy: 役に立つ
-fall short of ～: (目標・基準など)に達しない
-go a long way to do: …するのに大いに役立つ
-pave the way for/to ～: ～への準備をする[道を開く]
-put ～ to use: ～を利用する
-stand to reason: もっともである、理屈に合う
-see/do the sights (of～): (～の)観光をする
-read between the line: 行間を読む、真意をつかむ
-follow suit: 人のまねをする、先例になろう
-play a joke on ～: ～に(悪意のない)いたずらをする
-get on ～’s nerves: ～の神経にさわる
-get/have the better of ～: ～に勝つ、～を出し抜く
-get/be even with ～: (人)に仕返しをする[恨みを晴らす]
-hold/keep ～ in check: ～を抑える[食い止める]
-have an eye for ～: ～に対する眼識[鑑識力]がある
-have ～ on one’s mind: ～を気にしている[心配している]
-have yet to do: まだ…していない、これから…しなければならない
-dare to do: 思い切って[あえて]…する
-impose A on/upon B: AをBに課す[押しつける]
-ascribe A to B: AをBのせいにする
-bring A home to B: A(ある事柄)をB(人)に痛感させる
-a variety of ～: (同一種類のもので)いろいろ[さまざま]な～／～の種[つの型]
-a handful of ～: 一握りの～、少数[量]の～
-a host of ～: 多数の～
-scores of ～: 多数の～
-many a/an ～: 多くの～、あまたの～
-quite a few ～: かなりの数の～
-all manner of ～: あらゆる種類の～
-(all) on one’s own: (すべて)自分人で、(すべて)独力で
-at issue: 問題の、論争中の[で]
-at ～’s disposal: (人)の自由になって[使えて]
-at stake: 危うくなった[て]、賭けられた[て]
-(enough) ～ to go around: 全員に行き渡るだけの～
-every other ～: つおきの～、～おきに／残りのすべての～
-for a rainy day: (将来)まさかの時[緊急時]に備えて
-in earnest: 本格的に、熱心に
-in (good) shape: 調子が良くて
-in store (for～): (～のために)用意して、(～の身に)降りかかろうとして
-in the works: 準備[計画・進行]中で
-nothing short of ～: まさしく～(の)
-～ of one’s own: 自分自身の～
-of one’s (own) doing: (人)が…した
-on the move: (忙しく)移動中の[で]、活躍中の[で]
-on the ～ side: ～気味で[の]
-out of hand: 手に負えない／即座に
-out of the question: あり得ない、不可能で
-per capita: 一人当たりの[で]
-right as rain: すっかり健康[正常]で
-second to none: 誰[何]にも劣らない
-something of a ～: ちょっとした～、ある程度の～
-upward(s) of ～: ～以上(の)
-regardless of ～: ～に(も)かかわらず、～に関係なく
-in accordance with ～: ～に従って、～に応じて
-in proportion to ～: ～に比例して
-in the wake of ～: ～の通過後[跡]に、～の結果として
-as of ～: ～現在で、～の時点で
-but for ～: ～がないならば
-on ～ terms with …: …と～の関係[間柄]で
-on the verge of ～: ～をしそうで、～の瀬戸際で
-within walking distance of ～: ～から歩いて行けるところに
-to the effect that …: …という趣旨の[で]
-a case in point: 通例
-the pros and cons: 賛否両論
-a white elephant: 無用の長物
-the elephant in the room: 誰も触れたがらない話題
-part and parcel (of ～): (～の)不可分の要素、(～の)最重要部分
-all along: 最初からずっと
-all too: とても、非常に
-as such: そういうものとして、それ自体では
-(at) first hand: 直接に、じかに
-at ～’s convenience: ～の都合の良いときに
-at/on short notice: 急に、即座に
-at will: 思いのままに、随意に
-by and large: 概して
-down the road: (口論で)やがては、将来は
-early on: 早い時期に、早くから
-for a change: 気分転換に、たまには
-for all I know: よくは知らないが、たぶん
-for nothing: 無料で／無駄に
-if anything: どちらかと言えば、もしあるとしても
-in a row: 連続して
-in person: (代理人でなく)じかに、自ら
-in retrospect: (過去を)振り返って(みて)
-more often than not: 普通は、たいてい
-on second thought: 見たところは、表面上は
-on the face of it: 見たところは、表面上は
-on the spot: その場で、即座に／(口語で)窮地に立って、困って
-once (and) for all: きっぱりと、これを最後に
-one of these days: そのうちに
-once upon a time: 昔々
-only too: (glad, happy, pleased などの前で)とても、大いに／遺憾[残念]ながら
-sort/kind of ～: ちょっと、なんとなく
-such as it is: 大したものではないが、こんな程度のものだが、
-the other way around/round/about: 逆に、あべこべに
-to date: 現在まで(のところ)
-      `; // ★ここに自分の単語データを入れてくれ
+      be late for ~: ～に遅れる | Don't be late for the meeting.
+once in a while: 時々 | Everyone makes mistakes once in a while.
+lose oneself in ~: ～に没頭する | She often loses herself in a good book.
+be incapable of...ing: ～することができない | He is incapable of telling a lie.
+at one's wit's end: 途方に暮れて | I'm at my wit's end with this difficult problem.
+be cut out for (to be) ~: ～に向いている | I'm not sure if I'm cut out for this kind of work.
+make a contribution to ~: ～に貢献する | Every member made a contribution to the project's success.
+turn to ~: ～に頼る、～の方を向く | You can always turn to your parents for advice.
+be suitable for ~: ～に適している | This movie is suitable for all ages.
+in the course of ~: ～の間に | He learned a lot in the course of the year.
+get ready for ~: ～の準備をする | It's time to get ready for school.
+on the go: 忙しく働いて、移動中で | I've been on the go all day and I'm exhausted.
+in progress: 進行中で | The road construction is still in progress.
+get in contact with ~: ～と連絡を取る | I'll get in contact with you as soon as I arrive.
+lose sight of ~: ～を見失う | Never lose sight of your original goals.
+in no time: すぐに | The doctor will be with you in no time.
+as is often the case (with ~): （～には）よくあることだが | As is often the case with him, he forgot his umbrella.
+act on [upon] ~: ～に基づいて行動する、～に従う | You should act on your doctor's advice.
+pick out ~: ～を選び出す | Can you help me pick out a gift for my mother?
+be similar to ~: ～に似ている | My career path is similar to yours.
+single out ~: ～を選び出す（特に非難などのために） | Why did you single him out for criticism?
+have ~ in common (with ...): （...と）～を共通に持っている | We have many interests in common.
+be afraid to do: ～することを恐れる | Don't be afraid to make mistakes.
+see A as B: AをBとみなす | I see this challenge as a great opportunity.
+at first glance: 一見したところ | At first glance, the task seemed easy.
+be anxious to do: ～することを切望する | I'm anxious to hear the results of the exam.
+make haste: 急ぐ | We must make haste, or we'll miss the train.
+at (one's) ease: 落ち着いて、ゆったりして | He felt at ease after the presentation was over.
+(just) around [round] the corner: すぐ近くに、もう間近に | Spring is just around the corner.
+come into effect: 施行される、発効する | The new law will come into effect next month.
+become of ~: ～はどうなるか | I wonder what has become of my old school friends.
+at present: 現在は | We are not hiring any new staff at present.
+go a long way to 〔toward(s); in〕~: ～に大いに役立つ | This donation will go a long way to helping the poor.
+participate in ~: ～に参加する | Many people participate in the local festival.
+such as ~: ～のような | I like outdoor activities such as hiking and camping.
+brush up (on) ~: ～を磨き直す、やり直す | I need to brush up on my French before the trip.
+be content with ~: ～に満足している | You should be content with what you have.
+all of a sudden: 突然 | All of a sudden, the lights went out.
+at home: くつろいで、精通して | Please make yourself at home.
+go by: （時などが）経過する | As time goes by, you'll feel better.
+be of no use: 無駄である | It's of no use trying to persuade him.
+by all means: ぜひとも | By all means, let me know if you need help.
+keep [bear] ~ in mind: ～を心に留めておく | Keep in mind that the weather can change quickly.
+go on (with ~): （～を）続ける | The show must go on even if it rains.
+add A to B: AをBに加える | Add a little sugar to the coffee.
+hear of ~: ～の噂を聞く | I've never heard of that musician before.
+once upon a time: 昔々 | Once upon a time, there lived a brave knight.
+keep an eye [one's eye(s)] on ~: ～から目を離さない、～を監視する | Could you keep an eye on my luggage for a moment?
+go off: （爆弾などが）爆発する、（アラームが）鳴る、立ち去る | My alarm didn't go off this morning.
+present A with B: AにBを贈る | They presented the winner with a gold medal.
+next to ~: ～の隣に | The bank is next to the post office.
+point out that ...: ...ということを指摘する | She pointed out that there was a mistake in the report.
+account for ~: ～を説明する、～の割合を占める | Computers account for a large part of the company's sales.
+pay (A) for B: Bのために（Aを）支払う | How much did you pay for those shoes?
+what is called ~: いわゆる～ | This is what is called a turning point in history.
+in detail: 詳細に | Please explain the situation in detail.
+spend A on [for] B: B（こと・もの）にA（時間・金）を費やす | I spend a lot of time on my hobbies.
+give ~ a ride [lift]: ～を（車などに）乗せてあげる | Can I give you a ride to the station?
+in a hurry: 急いで | I'm in a hurry to catch the last bus.
+watch out (for ~): （～に）気をつける | Watch out for ice on the sidewalk.
+under construction: 建設中で | The new museum is still under construction.
+make a mistake: 間違う | Don't be afraid to make a mistake.
+have an [a good] eye for ~: ～を見る目がある | He has a good eye for quality furniture.
+a piece of +不可算名詞: １つの～ | Let me give you a piece of advice.
+make a [one's] living: 生計を立てる | It's difficult to make a living as an artist.
+second to none: 誰にも負けない | His knowledge of history is second to none.
+take the trouble to do: わざわざ～する | Thank you for taking the trouble to come all this way.
+out of date: 時代遅れの | This information is out of date and no longer useful.
+for the present: 当分の間は | This should be enough money for the present.
+a host of ~: 多数の～ | We are facing a host of environmental problems.
+hand down ~: （後世に）～を伝える | This recipe has been handed down in my family for years.
+for a while: しばらくの間 | I'll be back in the office after resting for a while.
+hang on (to ~): （～を）しっかりつかむ、電話を切らずに待つ | Hang on a second, I'll check my schedule.
+in particular: 特に | Is there any dish in particular that you'd like to try?
+put ~ to use: ～を利用する | You should put your skills to better use.
+take up ~: （時間・場所を）取る、～を始める | I decided to take up yoga to stay healthy.
+put out ~: （火・明かりなどを）消す | Don't forget to put out the lights.
+adapt A to [for] B: AをBに適応させる | You need to adapt your strategy to the current situation.
+take a chance [chances]: いちかばちかやってみる、リスクを冒す | You have to take a chance if you want to succeed.
+many a [an] ~: 多くの～ | Many a man has tried and failed at this task.
+at will: 意のままに | The machine can be adjusted at will.
+of one's own accord [free will]: 自発的に | He admitted his mistake of his own accord.
+be bored with [of] ~: ～に退屈している | I'm getting bored with this long speech.
+see (to it) that ...: ...するように手配する、気をつける | Please see to it that all the doors are locked.
+to the fullest [full]: 十分に | We should enjoy our summer vacation to the fullest.
+with all ~: ～（がある）にもかかわらず | With all his wealth, he is not a happy man.
+break out: （急に）発生する、勃発する | War broke out in the region last year.
+be true of ~: ～に当てはまる | What is true of the individual is often true of the group.
+be liable to do: ～しがちである | We are all liable to make mistakes when we are tired.
+be of interest: 興味深い | This ancient coin will be of great interest to collectors.
+be absorbed in ~: ～に夢中になっている | The children were absorbed in their game.
+get tired from [with] ~: ～で疲れる | I got tired from walking around the city all day.
+put in ~: （時間・努力などを）つぎ込む、～を入れる | He put in a lot of work to finish the report.
+be compelled to do: ～せざるを得ない | I was compelled to leave early because of an emergency.
+go ahead: （許可を得て）進む、先にやる | Go ahead and start without me.
+concentrate (A) on B: (Aを)Bに集中させる | You should concentrate on your studies.
+get on with ~: （仕事などを）続ける、～と仲良くやっていく | Stop talking and get on with your work.
+limit A to B: AをBに制限する | We must limit our expenses to 5,000 yen.
+wake (~) up: 目を覚ます、～を起こす | I hope the noise didn't wake you up.
+cure A of B: AのB（病気・悪癖など）を治す | This treatment should cure him of his illness.
+      `;
 
     document.addEventListener('dblclick', function(event) { event.preventDefault(); }, { passive: false });
     document.addEventListener('touchmove', function(event) { if (event.scale !== 1) { event.preventDefault(); } }, { passive: false });
 
-        class HybridQuiz {
+    class HybridQuiz {
         constructor() {
             this.wordsPerRound = 20; 
             this.masterList = [];
@@ -1601,13 +692,11 @@ to date: 現在まで(のところ)
             this.spellingAns = []; 
             this.spellingPoolState = []; 
             
-            // BLIND RADIO
             this.isRadioMode = false;
             const radioCheck = document.getElementById('radio-mode');
             if(radioCheck) {
                 radioCheck.addEventListener('change', (e) => {
                     this.isRadioMode = e.target.checked;
-                    // ラジオモードONなら自動音声も強制ON
                     if(this.isRadioMode) this.isAutoAudio = true; 
                 });
             }
@@ -1652,18 +741,13 @@ to date: 現在まで(のところ)
             load();
         }
 
-       speak(text) {
+        speak(text) {
             if (!this.synth || this.englishVoices.length === 0) {
                 console.warn("[TTS] Engine warming up...");
                 return; 
             }
             this.synth.cancel(); 
-            
-            // --- ここにデブリ除去フィルターを追加 ---
-            // 「~」「～」「...」を空白に置き換えてノイズを消す
             const cleanText = text.replace(/[~～]/g, '').replace(/\.\.\./g, '').trim();
-
-            // text の代わりに cleanText を音声ユニットに渡す
             const utterance = new SpeechSynthesisUtterance(cleanText);
             const preferredVoice = this.englishVoices.find(v => v.name.includes('Google US English')) 
                                 || this.englishVoices.find(v => v.name.includes('Samantha'))
@@ -1677,15 +761,18 @@ to date: 現在まで(のところ)
 
         parseData() {
             if(!rawData.trim()) { this.masterList = []; return; }
-            const lines = rawData.split('\n').map(l => l.trim()).filter(l => l.length > 0 && !l.startsWith('[source'));
+            const lines = rawData.split('\n').map(l => l.trim()).filter(l => l.length > 0);
             this.masterList = [];
             lines.forEach(line => {
-                let sep = -1;
-                if (line.indexOf('\t') !== -1) sep = line.indexOf('\t');
-                else if (line.indexOf(':') !== -1) sep = line.indexOf(':');
-                else if (line.indexOf('：') !== -1) sep = line.indexOf('：');
+                const [mainPart, example] = line.split('|').map(s => s.trim());
+                let sep = mainPart.indexOf(':') !== -1 ? mainPart.indexOf(':') : mainPart.indexOf('：');
+                
                 if (sep !== -1) {
-                    this.masterList.push({ w: line.substring(0, sep).trim(), m: line.substring(sep + 1).trim() });
+                    this.masterList.push({ 
+                        w: mainPart.substring(0, sep).trim(), 
+                        m: mainPart.substring(sep + 1).trim(),
+                        ex: example || "" 
+                    });
                 }
             });
         }
@@ -1736,13 +823,10 @@ to date: 現在まで(のところ)
             if (selector.selectedIndex >= 0) {
                 roundName = selector.options[selector.selectedIndex].text;
             }
-            
             const tire = this.wordsPerRound;
             const rev = document.getElementById('reverse-mode').checked ? "REV" : "STD";
-            // BLIND RADIO
             const radio = document.getElementById('radio-mode').checked ? "+RADIO" : "";
             const spell = document.getElementById('spelling-mode').checked && document.getElementById('reverse-mode').checked ? "+MANUAL" : "";
-            
             document.getElementById('strategy-summary').innerText = `${roundName} | ${tire} Qs | ${rev}${radio}${spell}`;
         }
 
@@ -1843,42 +927,27 @@ to date: 現在まで(のところ)
             this.updateSummary();
             this.start();
         }
-        // ...既存の createRandomRound() の処理のすぐ下に追加...
 
         createFlaggedRound() {
-            // クラウドから同期されている全データの中から、フラグ済みのものを抽出
             const flaggedItems = (this.allMistakes || []).filter(m => m.bookmarked);
-            
             if (flaggedItems.length === 0) {
                 alert("No flagged words found. まだフラグが立っていない。まずはコースに出て限界を探ってこい。");
                 return;
             }
-
-            // 出題数の取得（入力がなければフラグ全数）
             const qVal = document.getElementById('flagged-qty').value;
             let qty = parseInt(qVal);
             if (isNaN(qty) || qty <= 0) qty = flaggedItems.length;
 
-            // シャッフルして指定された数だけ抽出
             this.shuffle(flaggedItems);
             const targetItems = flaggedItems.slice(0, qty);
-
             const selectedWords = targetItems.map(item => ({ w: item.word || item.w, m: item.meaning || item.m }));
             
-            // ラウンドリストの最前列（ポールポジション）に強制セット
-            this.vocabRounds.unshift({ 
-                id: 'flagged', 
-                name: `🚩 FLAGGED GP (${selectedWords.length} Qs)`, 
-                words: selectedWords 
-            });
-            
-            // セッティングを更新して即座にアタック開始
+            this.vocabRounds.unshift({ id: 'flagged', name: `🚩 FLAGGED GP (${selectedWords.length} Qs)`, words: selectedWords });
             this.initUI();
             document.getElementById('round-selector').value = 0;
             this.updateSummary();
             this.start();
         }   
-
 
         setTireStrategy(count, type) {
             this.wordsPerRound = count;
@@ -1900,7 +969,6 @@ to date: 現在まで(のところ)
             }
         }
 
-        // --- FREE PRACTICE (FLASHCARD) MODE ---
         startFlashcardMode() {
             if(this.vocabRounds.length === 0) { alert("Data not loaded. Check your telemetry."); return; }
             
@@ -1908,7 +976,6 @@ to date: 現在まで(のところ)
             this.currentRoundIndex = parseInt(selector.value);
             const selectedRound = this.vocabRounds[this.currentRoundIndex];
             
-            // 選択されたラウンドの単語セットをそのままロード
             this.questions = selectedRound.words.map(target => ({ w: target.w, m: target.m }));
             this.currentIndex = 0;
             this.isReverseMode = document.getElementById('reverse-mode').checked;
@@ -1920,19 +987,17 @@ to date: 現在まで(のところ)
             this.showFlashcard();
         }
 
-       showFlashcard() {
+        showFlashcard() {
             if (this.questions.length === 0) return;
             const q = this.questions[this.currentIndex];
             document.getElementById('fc-progress').innerText = `LAP ${this.currentIndex + 1} / ${this.questions.length}`;
             
-            // Reverse Modeの状態に応じて表と裏のテキストをセット
             const displayWord = this.isReverseMode ? q.m : q.w;
             const displayMeaning = this.isReverseMode ? q.w : q.m;
 
             const wordEl = document.getElementById('fc-word');
             wordEl.innerText = displayWord;
             
-            // 日本語が表（Reverse）の場合はフォントサイズを調整
             if (this.isReverseMode && displayWord.length > 8) {
                 wordEl.classList.remove('text-5xl', 'md:text-7xl');
                 wordEl.classList.add('text-3xl', 'md:text-5xl');
@@ -1942,9 +1007,8 @@ to date: 現在まで(のところ)
             }
 
             document.getElementById('fc-meaning').innerText = displayMeaning;
-            document.getElementById('fc-meaning-container').classList.add('hidden'); // 裏面を隠す
+            document.getElementById('fc-meaning-container').classList.add('hidden'); 
 
-            // --- 追加: フラグ状態の確認と反映 ---
             const currentWord = q.w;
             const srsData = this.allMistakes ? this.allMistakes.find(m => m.word === currentWord || m.w === currentWord) : null;
             const isBookmarked = srsData && srsData.bookmarked;
@@ -1958,7 +1022,6 @@ to date: 現在まで(のところ)
                 }
             }
             
-            // 英語が表面なら自動で読み上げ
             if (this.isAutoAudio && !this.isReverseMode) {
                 setTimeout(() => this.speak(q.w), 100);
             }
@@ -1968,7 +1031,6 @@ to date: 現在まで(のところ)
             const container = document.getElementById('fc-meaning-container');
             container.classList.toggle('hidden');
             
-            // 裏面が英語（Reverse Mode）なら、めくった瞬間に発音する
             if (!container.classList.contains('hidden') && this.isReverseMode && this.isAutoAudio) {
                 this.speak(this.questions[this.currentIndex].w);
             }
@@ -1976,61 +1038,39 @@ to date: 現在まで(のところ)
 
         nextFlashcard() {
             if (this.currentIndex < this.questions.length - 1) {
-                // まだ同じラウンド内に単語が残っているなら次へ
                 this.currentIndex++;
                 this.showFlashcard();
             } else {
-                // 現在のラウンドが終了した場合の処理
                 const currentRound = this.vocabRounds[this.currentRoundIndex];
-                
-                // カスタムやランダム等の単発セッションではなく、次のラウンドが存在する場合
                 if (currentRound.id !== 'custom' && currentRound.id !== 'random' && this.currentRoundIndex + 1 < this.vocabRounds.length) {
-                    
-                    // 次のラウンドへギアを上げる（セレクトボックスの表示も同期）
                     const selector = document.getElementById('round-selector');
                     selector.value = this.currentRoundIndex + 1;
-                    
-                    // 次のラウンドでFPモードを再スタート
                     this.startFlashcardMode();
-                    
                 } else {
-                    // 全セクター完了、または特殊ラウンド終了時はガレージへ戻る
                     this.exitFlashcardMode();
                 }
             }
         }
 
         async toggleFlashcardBookmark(event) {
-            // カード本体のフリップ処理（裏返し）が発動するのをブロックする
             event.stopPropagation();
-            
             const q = this.questions[this.currentIndex];
             const safeW = encodeURIComponent(q.w);
             const safeM = encodeURIComponent(q.m);
             
-            // 既存のデータベース同期機能（toggleBookmark）を呼び出す
             await window.toggleBookmark(safeW, safeM);
             
-            // 状態を再確認してUIを即座に更新する
             const srsData = this.allMistakes ? this.allMistakes.find(m => m.word === q.w || m.w === q.w) : null;
             const isBookmarked = srsData && srsData.bookmarked;
-            
             const bookmarkBtn = document.getElementById('fc-bookmark-btn');
             if (bookmarkBtn) {
-                if (isBookmarked) {
-                    bookmarkBtn.innerText = '🚩';
-                } else {
-                    bookmarkBtn.innerText = '🏳️';
-                }
+                bookmarkBtn.innerText = isBookmarked ? '🚩' : '🏳️';
             }
         }
 
-        // --- 手動での音声再生処理 ---
         speakFlashcardWord() {
             if (this.questions.length === 0) return;
-            const q = this.questions[this.currentIndex];
-            // 表面が日本語(Reverse Mode)であっても、再生するのは常に英単語
-            this.speak(q.w);
+            this.speak(this.questions[this.currentIndex].w);
         }
 
         prevFlashcard() {
@@ -2058,7 +1098,6 @@ to date: 現在まで(のところ)
             document.getElementById('result-screen').classList.add('hidden');
             document.getElementById('quiz-screen').classList.remove('hidden');
             
-            // 常にVocabモード
             this.startVocabMode();
         }
 
@@ -2071,12 +1110,11 @@ to date: 現在まで(のところ)
             const selectedRound = this.vocabRounds[this.currentRoundIndex];
             
             if (selectedRound.id !== 'custom' && selectedRound.id !== 'random') {
-            localStorage.setItem('idiom_last_round', this.currentRoundIndex);
+                localStorage.setItem('idiom_last_round', this.currentRoundIndex);
             }
 
             this.isReverseMode = document.getElementById('reverse-mode').checked;
             this.isSpellingMode = document.getElementById('spelling-mode').checked && this.isReverseMode;
-            // BLIND RADIO
             this.isRadioMode = document.getElementById('radio-mode').checked;
 
             let modeTitle = "";
@@ -2100,6 +1138,7 @@ to date: 現在まで(のところ)
                 return { 
                     w: target.w, 
                     m: target.m, 
+                    ex: target.ex, 
                     qText: qText, 
                     aText: aText, 
                     o: options,
@@ -2152,9 +1191,7 @@ to date: 現在まで(のところ)
              
              const targetDisplay = document.getElementById('target-word');
 
-             // BLIND RADIO: BROADCAST STYLE
              if (this.isRadioMode) {
-                 // クラスをリセットしてコンテナ化
                  targetDisplay.className = "w-full flex justify-center py-4"; 
                  targetDisplay.innerHTML = `
                     <div class="radio-box">
@@ -2167,7 +1204,6 @@ to date: 現在まで(のところ)
                                 <span class="text-white f1-font text-2xl font-bold italic tracking-wider">GP <span class="text-gray-600 text-sm not-italic mx-1">➜</span> YOU</span>
                             </div>
                         </div>
-                        
                         <div class="waveform">
                             <div class="wave-bar"></div>
                             <div class="wave-bar"></div>
@@ -2179,7 +1215,6 @@ to date: 現在まで(のところ)
                  `;
                  setTimeout(() => this.speak(q.w), 300);
              } else {
-                 // 通常モード（テキスト表示）
                  targetDisplay.innerHTML = "";
                  targetDisplay.innerText = q.qText;
                  targetDisplay.className = (this.isReverseMode && q.qText.length > 8) 
@@ -2187,6 +1222,24 @@ to date: 現在まで(のところ)
                      : "f1-font text-6xl font-bold text-white tracking-wide drop-shadow-lg break-words px-2 text-center";
                  
                  if (this.isAutoAudio && !this.isReverseMode && !this.isSpellingMode) setTimeout(() => this.speak(q.w), 200);
+             }
+
+             const exArea = document.getElementById('example-area');
+             const exText = document.getElementById('example-text');
+
+             if (q.ex) {
+                 exText.innerText = q.ex;
+                 exArea.classList.add('hidden'); 
+                 targetDisplay.style.cursor = "pointer";
+                 targetDisplay.title = "Tap for Hint";
+                 targetDisplay.onclick = () => {
+                     exArea.classList.toggle('hidden');
+                 };
+             } else {
+                 exArea.classList.add('hidden');
+                 targetDisplay.style.cursor = "default";
+                 targetDisplay.title = "";
+                 targetDisplay.onclick = null; 
              }
 
              this.lapStartTime = Date.now(); 
@@ -2198,39 +1251,32 @@ to date: 現在まで(のところ)
              speakBtn.onclick = () => this.speak(q.w);
 
              const flagBtn = document.getElementById('flag-btn');
-        if (flagBtn) {
-            // 現在の単語がすでにフラグ済みかデータベースをチェック
-            let isFlagged = false;
-            const currentItem = (this.allMistakes || []).find(m => m.word === q.w || m.w === q.w);
-            if (currentItem && currentItem.bookmarked) isFlagged = true;
+             if (flagBtn) {
+                 let isFlagged = false;
+                 const currentItem = (this.allMistakes || []).find(m => m.word === q.w || m.w === q.w);
+                 if (currentItem && currentItem.bookmarked) isFlagged = true;
 
-            // ボタンの見た目を更新する関数
-            const updateFlagUI = () => {
-                if (isFlagged) {
-                    flagBtn.classList.add('text-red-500', 'border-red-500', 'bg-red-900/20');
-                    flagBtn.classList.remove('text-gray-400', 'border-gray-700', 'bg-black/40');
-                } else {
-                    flagBtn.classList.remove('text-red-500', 'border-red-500', 'bg-red-900/20');
-                    flagBtn.classList.add('text-gray-400', 'border-gray-700', 'bg-black/40');
-                }
-            };
-            
-            updateFlagUI(); // 画面表示時に初期セットアップ
+                 const updateFlagUI = () => {
+                     if (isFlagged) {
+                         flagBtn.classList.add('text-red-500', 'border-red-500', 'bg-red-900/20');
+                         flagBtn.classList.remove('text-gray-400', 'border-gray-700', 'bg-black/40');
+                     } else {
+                         flagBtn.classList.remove('text-red-500', 'border-red-500', 'bg-red-900/20');
+                         flagBtn.classList.add('text-gray-400', 'border-gray-700', 'bg-black/40');
+                     }
+                 };
+                 updateFlagUI(); 
 
-            flagBtn.onclick = () => {
-                const safeW = encodeURIComponent(q.w);
-                const safeM = encodeURIComponent(q.m);
-                
-                // 既存のグローバル関数を叩いてFirebaseと同期させる
-                if (window.toggleBookmark) {
-                    window.toggleBookmark(safeW, safeM);
-                }
-                
-                // ボタンの見た目をその場で反転
-                isFlagged = !isFlagged;
-                updateFlagUI();
-            };
-        }
+                 flagBtn.onclick = () => {
+                     const safeW = encodeURIComponent(q.w);
+                     const safeM = encodeURIComponent(q.m);
+                     if (window.toggleBookmark) {
+                         window.toggleBookmark(safeW, safeM);
+                     }
+                     isFlagged = !isFlagged;
+                     updateFlagUI();
+                 };
+             }
 
              const stdContainer = document.getElementById('options-container');
              const spellContainer = document.getElementById('spelling-interface');
@@ -2246,7 +1292,7 @@ to date: 現在まで(のところ)
              }
          }
 
-renderSpellingInterface(q) {
+         renderSpellingInterface(q) {
              const slotsEl = document.getElementById('spelling-slots');
              const poolEl = document.getElementById('spelling-pool');
              
@@ -2282,9 +1328,7 @@ renderSpellingInterface(q) {
 
              this.spellingPoolState.forEach((item) => {
                  const btn = document.createElement('button');
-                 
                  if (item.used) {
-                     // 選択済みのボタンを半透明にし、クリックで取り消し（Undo）を実行する
                      btn.className = "px-4 h-12 bg-gray-900 text-gray-500 rounded shadow-inner border border-gray-700 active:scale-95 transition-all text-lg font-bold opacity-50"; 
                      btn.innerText = item.char;
                      btn.onclick = () => this.handlePoolUndo(item, q);
@@ -2296,7 +1340,8 @@ renderSpellingInterface(q) {
                  poolEl.appendChild(btn);
              });
          }
-       handlePoolUndo(item, q) {
+
+         handlePoolUndo(item, q) {
              if (this.isLocked) return;
              const index = this.spellingAns.findIndex(ans => ans.id === item.id);
              if (index !== -1) {
@@ -2315,7 +1360,8 @@ renderSpellingInterface(q) {
                  this.checkSpellingWin(q);
              }
          }
-        checkSpellingWin(q) {
+
+         checkSpellingWin(q) {
              const userWord = this.spellingAns.map(a => a.char).join(' ');
              const targetWord = q.w.trim().replace(/\s+/g, ' ');
              const slotsEl = document.getElementById('spelling-slots');
@@ -2348,8 +1394,6 @@ renderSpellingInterface(q) {
                  this.currentStreak = 0;
                  
                  slotsEl.classList.add('wrong-lane', 'animate-shake');
-                 
-                 // 間違えた場合は正解を白文字で大きく表示する
                  feedback.innerHTML = `<span class="text-red-500 text-sm font-bold mr-2">DAMAGE:</span><span class="text-white text-base font-bold tracking-normal normal-case">${q.w}</span>`;
 
                  if (!this.missedWordsLog.find(item => item.w === q.w)) this.missedWordsLog.push({ w: q.w, m: q.m });
@@ -2358,10 +1402,7 @@ renderSpellingInterface(q) {
                      window.handleSRSUpdate({ ...q, timeTaken: 5.0 }, false);
                  }
 
-                 // 単語モード同様、間違えた問題を一番後ろに追加して後で再挑戦させる
                  this.questions.push(q);
-
-                 // 熟語なので答えを確認する時間を長めに取る (2500ms)
                  setTimeout(() => {
                      this.isLocked = false;
                      slotsEl.classList.remove('wrong-lane', 'animate-shake');
@@ -2374,7 +1415,7 @@ renderSpellingInterface(q) {
              }
          }
 
-        handleSpellingUndo(index, q) {
+         handleSpellingUndo(index, q) {
              if (this.isLocked) return; 
              const removedItem = this.spellingAns.splice(index, 1)[0];
              const poolItem = this.spellingPoolState.find(p => p.id === removedItem.id);
@@ -2385,7 +1426,6 @@ renderSpellingInterface(q) {
          renderStandardOptions(q, container) {
              container.innerHTML = '';
              
-             // 選択肢生成関数
              const renderBtns = () => {
                  container.innerHTML = '';
                  q.o.forEach(opt => {
@@ -2398,16 +1438,13 @@ renderSpellingInterface(q) {
                  });
              };
 
-             // BLIND RADIOなら即表示、それ以外は隠す
              if (this.isRadioMode) {
                  renderBtns();
              } else {
                  const revealBtn = document.createElement('button');
                  revealBtn.className = 'col-span-2 w-full h-32 bg-gray-900/50 border-2 border-dashed border-gray-600 rounded-xl text-gray-400 f1-font text-2xl uppercase tracking-widest hover:border-yellow-500 hover:text-yellow-500 transition-all flex flex-col items-center justify-center gap-2 animate-pulse';
                  revealBtn.innerHTML = `<span>VISUALIZE MEANING</span><span class="text-xs text-gray-500 font-mono">TAP TO UNLOCK</span>`;
-                 revealBtn.onclick = () => { 
-                     renderBtns();
-                 };
+                 revealBtn.onclick = () => { renderBtns(); };
                  container.appendChild(revealBtn);
              }
          }
@@ -2417,10 +1454,8 @@ renderSpellingInterface(q) {
              if (btns.length > 0 && btns[0].disabled) return;
              btns.forEach(b => b.disabled = true);
 
-             // ラジオモードなら、回答後に正解を表示
              if (this.isRadioMode) {
                  const targetDisplay = document.getElementById('target-word');
-                 // グラフィックを消して、正解テキストを表示
                  targetDisplay.innerHTML = "";
                  targetDisplay.innerText = q.w; 
                  targetDisplay.className = "f1-font text-6xl font-bold text-white tracking-wide drop-shadow-xl break-words px-2 text-center";
@@ -2565,9 +1600,7 @@ renderSpellingInterface(q) {
                 if (currentRound && currentRound.id === 'random') {
                     nextBtn.classList.remove('hidden');
                     nextBtn.innerText = "AGAIN (SAME SETUP)"; 
-                    nextBtn.onclick = () => { 
-                        this.createRandomRound(); 
-                    };
+                    nextBtn.onclick = () => { this.createRandomRound(); };
                 } else if (this.currentRoundIndex + 1 < this.vocabRounds.length) {
                     nextBtn.classList.remove('hidden');
                     nextBtn.innerText = "NEXT SECTOR";
@@ -2606,7 +1639,6 @@ renderSpellingInterface(q) {
         
          startPitStop() {
              if (!this.dueMistakes || this.dueMistakes.length === 0) return;
-             // 熟語は除外
              const vocabDue = this.dueMistakes.filter(item => !item.id.toString().startsWith('idiom_'));
              if (!vocabDue || vocabDue.length === 0) return;
 
@@ -2619,7 +1651,7 @@ renderSpellingInterface(q) {
                  
                  const distractors = this.getDistractors(targetWord, false);
                  const options = [targetWord.m, ...distractors].sort(() => Math.random() - 0.5);
-                 return { w: targetWord.w, m: targetWord.m, qText: targetWord.w, aText: targetWord.m, o: options, docId: item.id, interval: item.interval || 0, repetitions: item.repetitions || 0, easeFactor: item.easeFactor || 2.5 };
+                 return { w: targetWord.w, m: targetWord.m, ex: item.ex || "", qText: targetWord.w, aText: targetWord.m, o: options, docId: item.id, interval: item.interval || 0, repetitions: item.repetitions || 0, easeFactor: item.easeFactor || 2.5 };
              });
              
              this.questions.sort(() => Math.random() - 0.5);
@@ -2695,12 +1727,7 @@ renderSpellingInterface(q) {
              
              let merged = dataSrc.map((item, idx) => {
                  const srs = this.allMistakes.find(m => m.word === item.w || m.w === item.w);
-                 return {
-                     w: item.w || item.word,
-                     m: item.m || item.meaning,
-                     id: idx,
-                     srs: srs || null
-                 };
+                 return { w: item.w || item.word, m: item.m || item.meaning, id: idx, srs: srs || null };
              });
 
              const filtered = merged.filter(item => {
@@ -2708,7 +1735,6 @@ renderSpellingInterface(q) {
                  const matchBook = this.bookmarkedOnly ? (item.srs && item.srs.bookmarked) : true;
                  const wordNum = item.id + 1;
                  const matchRange = (!startVal || wordNum >= startVal) && (!endVal || wordNum <= endVal);
-
                  return matchQ && matchBook && matchRange;
              });
 
@@ -2720,9 +1746,8 @@ renderSpellingInterface(q) {
              const displayLimit = 100;
              const viewData = filtered.slice(0, displayLimit);
 
-           viewData.forEach(item => {
+             viewData.forEach(item => {
                  const div = document.createElement('div');
-                 // パディングを広げ、ホバー時の視認性を高めたデザインに変更
                  div.className = "flex items-center justify-between bg-gray-900/60 p-4 rounded-xl border border-gray-700 hover:border-yellow-500 transition-all group shadow-md";
                  
                  let statusColor = "bg-gray-700"; 
@@ -2739,8 +1764,6 @@ renderSpellingInterface(q) {
                  const displayW = item.w.replace(/</g, "&lt;").replace(/>/g, "&gt;");
                  const displayM = item.m.replace(/</g, "&lt;").replace(/>/g, "&gt;");
 
-                 // テキストサイズとアイコンサイズを拡大し、情報にメリハリをつける
-                // スマホ用にテキストとタップ領域を極大化し、意味の省略(truncate)を解除
                  div.innerHTML = `
                      <div class="flex items-center gap-3 overflow-hidden w-full">
                          <div class="w-2 h-16 ${statusColor} rounded-full shrink-0 shadow-[0_0_8px_currentColor]"></div>
@@ -2785,22 +1808,20 @@ renderSpellingInterface(q) {
       } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-firestore.js";
 
       const firebaseConfig = {
-       apiKey: "AIzaSyCX9MW8jPUmjnY7VTpmmeL3MDwlHvGahNM",
-  authDomain: "idiom-b9a6c.firebaseapp.com",
-  projectId: "idiom-b9a6c",
-  storageBucket: "idiom-b9a6c.firebasestorage.app",
-  messagingSenderId: "470952988915",
-  appId: "1:470952988915:web:07de89938146a6a5e26786",
-  measurementId: "G-BD904ESDMZ"
+          apiKey: "AIzaSyCX9MW8jPUmjnY7VTpmmeL3MDwlHvGahNM",
+          authDomain: "idiom-b9a6c.firebaseapp.com",
+          projectId: "idiom-b9a6c",
+          storageBucket: "idiom-b9a6c.firebasestorage.app",
+          messagingSenderId: "470952988915",
+          appId: "1:470952988915:web:07de89938146a6a5e26786",
+          measurementId: "G-BD904ESDMZ"
       };
 
       const app = initializeApp(firebaseConfig);
       const auth = getAuth(app);
       
       const db = initializeFirestore(app, {
-          localCache: persistentLocalCache({
-              tabManager: undefined 
-          })
+          localCache: persistentLocalCache({ tabManager: undefined })
       });
 
       const gateScreen = document.getElementById('gate-screen');
@@ -2831,9 +1852,7 @@ renderSpellingInterface(q) {
                           if(display) display.innerText = 0;
                       }
                   }
-              }, (error) => {
-                  console.warn("Stats sync warning:", error.message);
-              });
+              }, (error) => { console.warn("Stats sync warning:", error.message); });
           }
 
           try {
@@ -2857,11 +1876,7 @@ renderSpellingInterface(q) {
           }
 
         } else {
-          if (unsubscribeStats) {
-              unsubscribeStats();
-              unsubscribeStats = null;
-          }
-
+          if (unsubscribeStats) { unsubscribeStats(); unsubscribeStats = null; }
           window.currentUser = null;
           startScreen.classList.add('hidden');
           gateScreen.classList.remove('hidden');
@@ -2898,10 +1913,7 @@ renderSpellingInterface(q) {
                     }));
                     loadedFromCache = true;
                 }
-            } catch (e) { 
-                console.warn("Cache corrupted"); 
-                localStorage.removeItem(CACHE_KEY); 
-            }
+            } catch (e) { localStorage.removeItem(CACHE_KEY); }
         }
 
         if (!loadedFromCache) {
@@ -2917,7 +1929,7 @@ renderSpellingInterface(q) {
                 localStorage.setItem(CACHE_KEY, JSON.stringify(allItems));
                 localStorage.setItem(TIME_KEY, now.toString());
                 allItems = allItems.map(item => ({ ...item, nextReview: { toDate: () => new Date(item.nextReviewSeconds * 1000) } }));
-            } catch (e) { console.error("Telemetry Error:", e); throw e; }
+            } catch (e) { throw e; }
         }
 
         const dueItems = [];
@@ -2959,7 +1971,6 @@ renderSpellingInterface(q) {
             nextEaseFactor = Math.max(1.3, currentParams.easeFactor - 0.2); 
         } else {
             nextRepetitions = currentParams.repetitions + 1;
-            
             let easeBonus = 0;
             if (timeTaken < 1.2) easeBonus = 0.3;
             else if (timeTaken > 5.0) easeBonus = -0.15;
@@ -2977,8 +1988,6 @@ renderSpellingInterface(q) {
         nextDate.setDate(now.getDate() + nextInterval);
         const nextReviewSeconds = Math.floor(nextDate.getTime() / 1000);
 
-        console.log(`[SRS] Time: ${timeTaken.toFixed(2)}s | Next: ${nextInterval} days`);
-
         setDoc(targetRef, { 
             word: questionObj.w, 
             meaning: questionObj.meaning || questionObj.m, 
@@ -2987,8 +1996,7 @@ renderSpellingInterface(q) {
             repetitions: nextRepetitions, 
             easeFactor: nextEaseFactor, 
             lastReviewed: Timestamp.fromDate(now) 
-        }, { merge: true })
-        .catch((e) => console.error("Telemetry Failed:", e));
+        }, { merge: true }).catch((e) => console.error("Telemetry Failed:", e));
 
         try {
             const CACHE_KEY = `srs_data_${window.currentUser.uid}`;
@@ -2997,7 +2005,6 @@ renderSpellingInterface(q) {
             if (rawString) localData = JSON.parse(rawString);
 
             const index = localData.findIndex(item => item.word === questionObj.w || item.id === safeWordId);
-            
             const newItemState = {
                 id: safeWordId,
                 word: questionObj.w,
@@ -3008,17 +2015,12 @@ renderSpellingInterface(q) {
                 easeFactor: nextEaseFactor
             };
 
-            if (index !== -1) {
-                localData[index] = { ...localData[index], ...newItemState };
-            } else {
-                localData.push(newItemState);
-            }
-
+            if (index !== -1) { localData[index] = { ...localData[index], ...newItemState }; } 
+            else { localData.push(newItemState); }
             localStorage.setItem(CACHE_KEY, JSON.stringify(localData));
 
             if(window.quiz && window.quiz.allMistakes) {
                 const memIndex = window.quiz.allMistakes.findIndex(m => m.id === safeWordId || m.word === questionObj.w);
-                
                 if(memIndex !== -1) {
                      window.quiz.allMistakes[memIndex] = { 
                          ...window.quiz.allMistakes[memIndex], 
@@ -3026,17 +2028,13 @@ renderSpellingInterface(q) {
                          nextReview: { toDate: () => new Date(nextReviewSeconds * 1000) }
                      };
                 }
-                
                 const nowTs = Date.now() / 1000;
                 window.quiz.dueMistakes = window.quiz.allMistakes.filter(item => 
                     item.nextReviewSeconds <= nowTs && !item.id.toString().startsWith('idiom_')
                 );
                 window.quiz.updatePitStopButton(window.quiz.dueMistakes.length);
             }
-
-        } catch(e) {
-            console.error("Cache Update Failed:", e);
-        }
+        } catch(e) { console.error("Cache Update Failed:", e); }
       };
 
       window.saveRaceResult = async (data) => {
@@ -3072,9 +2070,8 @@ renderSpellingInterface(q) {
           const isCurrentlyBookmarked = currentItem && currentItem.bookmarked === true;
           const newValue = !isCurrentlyBookmarked;
 
-          if (currentItem) {
-              currentItem.bookmarked = newValue;
-          } else {
+          if (currentItem) { currentItem.bookmarked = newValue; } 
+          else {
               window.quiz.allMistakes.push({ 
                    word: word, meaning: meaning, bookmarked: newValue, 
                    interval: 0, repetitions: 0, easeFactor: 2.5,
@@ -3095,40 +2092,27 @@ renderSpellingInterface(q) {
 
           try {
               await setDoc(targetRef, {
-                  word: word,
-                  meaning: meaning,
-                  bookmarked: newValue,
+                  word: word, meaning: meaning, bookmarked: newValue,
                   interval: currentItem ? (currentItem.interval || 0) : 0,
                   repetitions: currentItem ? (currentItem.repetitions || 0) : 0,
                   easeFactor: currentItem ? (currentItem.easeFactor || 2.5) : 2.5,
                   nextReview: safeNextReview
               }, { merge: true });
 
-              // --- ここから追加：ローカルキャッシュの同期システム ---
               const CACHE_KEY = `srs_data_${window.currentUser.uid}`;
               const rawString = localStorage.getItem(CACHE_KEY);
               if (rawString) {
                   let localData = JSON.parse(rawString);
                   const index = localData.findIndex(item => item.word === word || item.id === docId);
-                  
-                  if (index !== -1) {
-                      localData[index].bookmarked = newValue;
-                  } else {
+                  if (index !== -1) { localData[index].bookmarked = newValue; } 
+                  else {
                       localData.push({
-                          id: docId,
-                          word: word,
-                          meaning: meaning,
-                          bookmarked: newValue,
-                          interval: 0,
-                          repetitions: 0,
-                          easeFactor: 2.5,
-                          nextReviewSeconds: Date.now() / 1000
+                          id: docId, word: word, meaning: meaning, bookmarked: newValue,
+                          interval: 0, repetitions: 0, easeFactor: 2.5, nextReviewSeconds: Date.now() / 1000
                       });
                   }
                   localStorage.setItem(CACHE_KEY, JSON.stringify(localData));
               }
-              // --- ここまで ---
-
           } catch(e) {
               console.error("Bookmark Error:", e);
               if(currentItem) currentItem.bookmarked = !newValue;
@@ -3143,15 +2127,11 @@ renderSpellingInterface(q) {
           try {
               await runTransaction(db, async (transaction) => {
                   const sfDoc = await transaction.get(statsRef);
-                  if (!sfDoc.exists()) {
-                      transaction.set(statsRef, { count: 1, date: todayStr });
-                  } else {
+                  if (!sfDoc.exists()) { transaction.set(statsRef, { count: 1, date: todayStr }); } 
+                  else {
                       const data = sfDoc.data();
-                      if (data.date === todayStr) {
-                          transaction.update(statsRef, { count: increment(1) });
-                      } else {
-                          transaction.set(statsRef, { count: 1, date: todayStr });
-                      }
+                      if (data.date === todayStr) { transaction.update(statsRef, { count: increment(1) }); } 
+                      else { transaction.set(statsRef, { count: 1, date: todayStr }); }
                   }
               });
           } catch (e) { console.error(e); }
