@@ -1687,21 +1687,25 @@ to date：現在まで｜This victory is definitely his most impressive performa
             });
         }
 
-      highlightIdiom(example, idiom) {
+     // ★熟語を赤色に強調する機能 (Advanced Smart Highlight)
+        highlightIdiom(example, idiom) {
             if (!example || !idiom) return example;
             
+            // 1. 特殊文字をエスケープ
             let pattern = idiom.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
             
+            // 2. be動詞の全形態に対応
             pattern = pattern.replace(/\bbe\b/gi, '(be|am|is|are|was|were|been|being)');
+            // 3. oneselfの全形態に対応
             pattern = pattern.replace(/\boneself\b/gi, '(oneself|myself|yourself|himself|herself|itself|ourselves|themselves)');
             
-            // ★修正：スラッシュ部分をグループ化して「AまたはB」として結合させる
-            // これで be sure (of|about) という判定になる
-            if (pattern.includes('\\/')) {
-                pattern = pattern.replace(/([^\\ ]+)\\\/([^\\ ]+)/g, '($1|$2)');
-            }
+            // 4. スラッシュ「/」を正しくグループ化して「AまたはB」として結合
+            // これで be sure (of|about) を正確に捉える
+            pattern = pattern.replace(/([^\\ ]+)\\\/([^\\ ]+)/g, '($1|$2)');
             
-            pattern = pattern.replace(/[~～]|\.\.\./g, '.*?');
+            // 5. 「 ~」や「 ...」の前のスペースを任意にし、末尾を省略可能にする
+            // これにより文末の "go by." も確実に捕捉する
+            pattern = pattern.replace(/\s*([~～]|\\\.\\\.\\\.)/g, '(.*?)?');
             
             const regex = new RegExp(`(${pattern})`, 'gi');
             return example.replace(regex, '<span class="text-red-500 not-italic font-bold">$1</span>');
