@@ -1685,6 +1685,7 @@ to date：現在まで｜This victory is definitely his most impressive performa
         }
 
    // 活用形・分離動詞に対応した強調エンジン
+                // 活用形・分離動詞に対応した強調エンジン
         highlightIdiom(example, idiom) {
             if (!example || !idiom) return example;
             
@@ -1692,6 +1693,7 @@ to date：現在まで｜This victory is definitely his most impressive performa
             let pattern = idiom.replace(/[.*+?^${}[\]\\]/g, '\\$&');
             
             // 2. 主要な動詞の活用形マッピング
+            // date や depend などを追加し、s や ed などの活用に対応させます
             const verbMap = {
                 'hold': '(hold|held|holding|holds)',
                 'take': '(take|took|taken|taking|takes)',
@@ -1711,7 +1713,12 @@ to date：現在まで｜This victory is definitely his most impressive performa
                 'run': '(run|ran|running|runs)',
                 'speak': '(speak|spoke|spoken|speaking|speaks)',
                 'see': '(see|saw|seen|seeing|sees)',
-                'be': '(be|am|is|are|was|were|been|being)'
+                'be': '(be|am|is|are|was|were|been|being)',
+                'date': '(date|dates|dated|dating)',
+                'depend': '(depend|depends|depended|depending)',
+                'occur': '(occur|occurs|occurred|occurring)',
+                'result': '(result|results|resulted|resulting)',
+                'succeed': '(succeed|succeeds|succeeded|succeeding)'
             };
 
             Object.keys(verbMap).forEach(v => {
@@ -1734,18 +1741,19 @@ to date：現在まで｜This victory is definitely his most impressive performa
             // 6. 「~」 や 「...」 をワイルドカード化
             pattern = pattern.replace(/\s*([~～]|\\\.\\\.\\\.)/g, '(.*?)?');
             
-            // 7. 分離動詞への対応（単語間のスペースを拡張）
+            // 7. 分離動詞への対応
             pattern = pattern.replace(/\s+/g, '\\s+(?:\\w+\\s+){0,2}');
 
             try {
-                // ★修正の要：\\b で囲み、独立した単語としてマッチさせる
+                // 独立した単語としてマッチさせるため \\b で囲む
                 const regex = new RegExp(`\\b(${pattern})\\b`, 'gi');
                 return example.replace(regex, '<span class="text-red-500 not-italic font-bold">$1</span>');
             } catch (e) {
                 console.warn("Highlight Engine Error:", e);
                 return example;
             }
-        } // ⬅️ この閉じタグが抜けていたんだ。忘れるな！
+        } // ここに閉じ括弧が必要でした
+
 
         generateRounds() {
             const wordCopy = [...this.masterList]; 
