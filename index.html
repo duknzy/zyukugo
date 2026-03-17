@@ -1684,73 +1684,11 @@ to date：現在まで｜This victory is definitely his most impressive performa
             });
         }
 
-   // 活用形・分離動詞に対応した強調エンジン
-                // 活用形・分離動詞に対応した強調エンジン
-                highlightIdiom(example, idiom) {
-            if (!example || !idiom) return example;
-            
-            // 1. 熟語を単語ごとに分解
-            let parts = idiom.split(/\s+/);
-            let patterns = parts.map((part, index) => {
-                // 記号をエスケープ
-                let p = part.replace(/[.*+?^${}[\]\\]/g, '\\$&');
-                
-                // 不規則動詞マップ（これらは自動判定が難しいため手動登録）
-                const irregularMap = {
-                    'hold': '(hold|held|holding|holds)',
-                    'take': '(take|took|taken|taking|takes)',
-                    'get': '(get|got|gotten|getting|gets)',
-                    'go': '(go|went|gone|going|goes)',
-                    'give': '(give|gave|given|giving|gives)',
-                    'bring': '(bring|brought|bringing|brings)',
-                    'catch': '(catch|caught|catching|catches)',
-                    'find': '(find|found|finding|finds)',
-                    'fall': '(fall|fell|fallen|falling|falls)',
-                    'be': '(be|am|is|are|was|were|been|being)',
-                    'oneself': '(oneself|myself|yourself|himself|herself|itself|ourselves|themselves)'
-                };
-
-                // 不規則マップにある場合はそれを使用
-                if (irregularMap[part.toLowerCase()]) {
-                    return irregularMap[part.toLowerCase()];
-                }
-
-                // 2. 規則動詞の自動拡張（最初の単語、または3文字以上の単語に適用）
-                // date -> (date|dates|dated|dating) を自動生成
-                if (index === 0 || part.length >= 3) {
-                    let base = p.replace(/[~～]$|...$/, ''); // 末尾の記号を除去
-                    if (base.length >= 3) {
-                        // eで終わる単語（date等）の処理
-                        if (base.endsWith('e')) {
-                            let stem = base.slice(0, -1);
-                            return `(${base}|${base}s|${base}d|${stem}ing)`;
-                        }
-                        // 一般的な規則活用
-                        return `(${base}|${base}s|${base}ed|${base}ing)`;
-                    }
-                }
-                return p;
-            });
-
-            // 3. パターンの結合と調整
-            let pattern = patterns.join('\\s+(?:\\w+\\s+){0,2}'); // 分離動詞対応
-
-            // 特殊記号の最終調整
-            pattern = pattern.replace(/\\\/([^ \(\)\/]+)/g, '|$1'); // スラッシュ対応
-            pattern = pattern.replace(/\((.*?)\)\?/g, '(.*?)?'); // 括弧のオプション化
-
-            try {
-                // 単語の境界線 \b を使って正確にロックオン
-                const regex = new RegExp(`\\b(${pattern})\\b`, 'gi');
-                return example.replace(regex, '<span class="text-red-500 not-italic font-bold">$1</span>');
-            } catch (e) {
-                console.warn("Highlight Engine Error:", e);
-                return example;
-            }
+   // 強調表示を無効化し、例文をそのまま返すセットアップ
+        highlightIdiom(example, idiom) {
+            return example;
         }
-
-
-
+        
         generateRounds() {
             const wordCopy = [...this.masterList]; 
             this.vocabRounds = [];
