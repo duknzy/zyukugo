@@ -1687,28 +1687,26 @@ to date：現在まで｜This victory is definitely his most impressive performa
             });
         }
 
-       highlightIdiom(example, idiom) {
+      highlightIdiom(example, idiom) {
             if (!example || !idiom) return example;
             
-            // 特殊文字をエスケープ
             let pattern = idiom.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
             
-            // be動詞の全形態に対応
             pattern = pattern.replace(/\bbe\b/gi, '(be|am|is|are|was|were|been|being)');
-            // oneselfの全形態に対応
             pattern = pattern.replace(/\boneself\b/gi, '(oneself|myself|yourself|himself|herself|itself|ourselves|themselves)');
             
-            // ★追加：スラッシュ「/」を「または（OR）」として認識させる
-            // be sure of/about のようなケースで of または about のどちらかにマッチさせる
-            pattern = pattern.replace(/\\\//g, '|');
+            // ★修正：スラッシュ部分をグループ化して「AまたはB」として結合させる
+            // これで be sure (of|about) という判定になる
+            if (pattern.includes('\\/')) {
+                pattern = pattern.replace(/([^\\ ]+)\\\/([^\\ ]+)/g, '($1|$2)');
+            }
             
-            // ～ や ... をワイルドカード化
             pattern = pattern.replace(/[~～]|\.\.\./g, '.*?');
             
             const regex = new RegExp(`(${pattern})`, 'gi');
             return example.replace(regex, '<span class="text-red-500 not-italic font-bold">$1</span>');
         }
-
+        
         generateRounds() {
             const wordCopy = [...this.masterList]; 
             this.vocabRounds = [];
