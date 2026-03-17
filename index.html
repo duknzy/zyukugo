@@ -554,7 +554,7 @@
             
             <div class="grid grid-cols-2 gap-4">
                 <button onclick="quiz.returnToGrid()" class="f1-font border border-gray-600 hover:bg-gray-800 text-white py-4 rounded-xl font-bold transition-all uppercase text-sm tracking-wider">Garage</button>
-                <button id="next-round-btn" class="f1-font bg-red-600 hover:bg-red-500 text-white py-4 rounded-xl font-bold transition-all shadow-lg shadow-red-900/50 uppercase text-sm tracking-wider">Next Sector</button>
+               <button id="next-round-btn" onclick="quiz.returnToGrid()" class="f1-font bg-red-600 hover:bg-red-500 text-white py-4 rounded-xl font-bold transition-all shadow-lg shadow-red-900/50 uppercase text-sm tracking-wider">Next Sector</button>
             </div>
         </div>
     </div>
@@ -2479,11 +2479,14 @@ to date：現在まで｜This victory is definitely his most impressive performa
                  const quizScreen = document.getElementById('quiz-screen');
                  const resultScreen = document.getElementById('result-screen');
                  
+                 // 確実な画面遷移の実行
                  if (quizScreen) quizScreen.classList.add('hidden');
                  if (resultScreen) {
                      resultScreen.classList.remove('hidden');
-                     // アニメーションを確実に発火させるため、一度不透明度をリセット
-                     resultScreen.style.opacity = "1"; 
+                     // 不透明度リセット（CSSアニメーション競合回避のため少し遅延させる）
+                     setTimeout(() => {
+                         resultScreen.style.opacity = "1";
+                     }, 10);
                  }
                  
                  // 2. データ計算
