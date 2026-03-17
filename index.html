@@ -1737,16 +1737,18 @@ to date：現在まで｜This victory is definitely his most impressive performa
             // 7. 【重要】分離動詞への対応
             // 単語間のスペースを、間に1〜2単語（代名詞や名詞）が挟まっても良いように拡張
             // これで "held me up" や "take it off" をキャッチする
+            // 7. 【重要】分離動詞への対応
+            // 単語間のスペースを、間に1〜2単語（代名詞や名詞）が挟まっても良いように拡張
             pattern = pattern.replace(/\s+/g, '\\s+(?:\\w+\\s+){0,2}');
 
             try {
-                const regex = new RegExp(`(${pattern})`, 'gi');
+                // ★修正：パターンの前後を \\b で囲むことで、単語の一部（Thisのisなど）を無視させる
+                const regex = new RegExp(`\\b(${pattern})\\b`, 'gi');
                 return example.replace(regex, '<span class="text-red-500 not-italic font-bold">$1</span>');
             } catch (e) {
                 console.warn("Highlight Engine Error:", e);
                 return example;
             }
-        }
         
         generateRounds() {
             const wordCopy = [...this.masterList]; 
