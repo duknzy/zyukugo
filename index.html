@@ -2471,34 +2471,82 @@ to date：現在まで｜This victory is definitely his most impressive performa
              });
          }
 
-         finish() {
+        finish() {
              try {
-                 clearInterval(this.timerInterval);
-                 document.getElementById('quiz-screen').classList.add('hidden');
-                 document.getElementById('result-screen').classList.remove('hidden');
+                 // 1. タイマー停止と画面切り替えを最優先で実行
+                 if (this.timerInterval) clearInterval(this.timerInterval);
                  
-                 const totalTime = (Date.now() - this.startTime) / 1000;
-                 let totalQs = this.questions.length;
-                 if (totalQs === 0) totalQs = 1; 
+                 const quizScreen = document.getElementById('quiz-screen');
+                 const resultScreen = document.getElementById('result-screen');
                  
-                 let correctCount = totalQs - this.missCount;
-                 if (correctCount < 0) correctCount = 0;
+                 if (quizScreen) quizScreen.classList.add('hidden');
+                 if (resultScreen) {
+                     resultScreen.classList.remove('hidden');
+                     // アニメーションを確実に発火させるため、一度不透明度をリセット
+                     resultScreen.style.opacity = "1"; 
+                 }
+                 
+                 // 2. データ計算
+                 const totalTime = this.startTime ? (Date.now() - this.startTime) / 1000 : 0;
+                 let totalQs = (this.questions && this.questions.length > 0) ? this.questions.length : 1;
+                 let correctCount = Math.max(0, totalQs - this.missCount);
                  let accuracy = (correctCount / totalQs) * 100;
                  
+                 // 3. 画面表示の更新 (DOM要素の存在を1つずつチェック)
                  const accDisplay = document.getElementById('accuracy-display');
                  if (accDisplay) {
                      accDisplay.innerText = `${accuracy.toFixed(1)}%`;
                      accDisplay.style.color = (accuracy >= 90) ? "#4ade80" : "#ef4444";
                  }
 
+                 const rankText = document.getElementById('rank-text');
+                 if(rankText) {
+                     rankText.innerText = `Time: ${totalTime.toFixed(2)}s | Misses: ${this.missCount} | Streak: ${this.maxStreak}`;
+                 }
+                 
+                 // 4. 分析レポートの生成
+                 const review = document.getElementById('review-list');
+                 if (review) {
+                     let summaryHtml = `<div class="mb-4 font-bold text-white uppercase text-sm tracking-widest border-b border-gray-700 pb-2">Lap Analysis</div>`;
+                     if (this.missedWordsLog && this.missedWordsLog.length > 0) { 
+                         summaryHtml += this.missedWordsLog.map(item => `
+                            <div class="mb-3 text-sm p-3 bg-red-900/10 border border-red-900/30 rounded">
+                                <div class="flex justify-between items-start mb-1">
+                                    <span class="font-bold text-white text-base">${item.w || 'Unknown'}</span>
+                                    <span class="text-xs text-gray-400 font-mono">${item.m || ''}</span>
+                                </div>
+                                ${item.ex ? `<p class="text-gray-400 text-xs italic mt-2 border-l border-red-600 pl-2 f1-font">${item.ex}</p>` : ''}
+                            </div>
+                         `).join(''); 
+                     } else { 
+                         summaryHtml += '<p class="text-green-500 font-bold">Perfect Lap. No Issues Detected.</p>'; 
+                     }
+                     review.innerHTML = summaryHtml;
+                 }
+                 
+                 // 5. ライセンス判定
+                 const passArea = document.getElementById('pass-area');
+                 const failMsg = document.getElementById('fail-msg');
+                 const passBtn = document.getElementById('pass-btn');
+                 if (accuracy >= 90) {
+                     if(passArea) passArea.classList.remove('hidden');
+                     if(failMsg) failMsg.classList.add('hidden');
+                     if(passBtn) {
+                         this.copyToClipboard('barcelona', passBtn);
+                         passBtn.onclick = () => this.copyToClipboard('barcelona', passBtn);
+                     }
+                 } else {
+                     if(passArea) passArea.classList.add('hidden');
+                     if(failMsg) failMsg.classList.remove('hidden');
+                 }
+
+                 // 6. 外部データ保存 (エラーが出やすいので最後に回す)
                  if (window.saveRaceResult) {
                      let roundName = "UNKNOWN ROUND";
-                     if (this.isPitStopMode) {
-                         roundName = "SRS PIT STOP";
-                     } else if (this.vocabRounds[this.currentRoundIndex]) {
+                     if (this.isPitStopMode) roundName = "SRS PIT STOP";
+                     else if (this.vocabRounds && this.vocabRounds[this.currentRoundIndex]) {
                          roundName = this.vocabRounds[this.currentRoundIndex].name;
                      }
-
                      window.saveRaceResult({
                          accuracy: parseFloat(accuracy.toFixed(1)),
                          round: roundName,
@@ -2508,77 +2556,20 @@ to date：現在まで｜This victory is definitely his most impressive performa
                      });
                  }
                  
-                 const passArea = document.getElementById('pass-area');
-                 const failMsg = document.getElementById('fail-msg');
-                 const passBtn = document.getElementById('pass-btn');
-                 const licenseId = `barcelona`;
-
-                 if (accuracy >= 90) {
-                     if(passArea) passArea.classList.remove('hidden');
-                     if(failMsg) failMsg.classList.add('hidden');
-                     this.copyToClipboard(licenseId, passBtn);
-                     if(passBtn) passBtn.onclick = () => this.copyToClipboard(licenseId, passBtn);
-                 } else {
-                     if(passArea) passArea.classList.add('hidden');
-                     if(failMsg) failMsg.classList.remove('hidden');
-                 }
-
-                 const rankText = document.getElementById('rank-text');
-                 if(rankText) {
-                     rankText.innerText = `Time: ${totalTime.toFixed(2)}s | Misses: ${this.missCount} | Max Streak: ${this.maxStreak}`;
-                 }
-                 
-                 const review = document.getElementById('review-list');
-                 let summaryHtml = `<div class="mb-4 font-bold text-white uppercase text-sm tracking-widest border-b border-gray-700 pb-2">Lap Analysis</div>`;
-                 
-                 if (this.missedWordsLog.length > 0) { 
-                     summaryHtml += this.missedWordsLog.map(item => `
-                        <div class="mb-3 text-sm p-3 bg-red-900/10 border border-red-900/30 rounded">
-                            <div class="flex justify-between items-start mb-1">
-                                <span class="font-bold text-white text-base">${item.w}</span>
-                                <span class="text-xs text-gray-400 font-mono">${item.m}</span>
-                            </div>
-                            ${item.ex ? `<p class="text-gray-400 text-xs italic mt-2 border-l border-red-600 pl-2 font-serif">${item.ex}</p>` : ''}
-                        </div>
-                     `).join(''); 
-                 } else { 
-                     summaryHtml += '<p class="text-green-500 font-bold">Perfect Lap. No Issues Detected.</p>'; 
-                 }
-                 if(review) review.innerHTML = summaryHtml;
-                 
-                 const nextBtn = document.getElementById('next-round-btn');
-                 if (nextBtn) {
-                     const currentRound = this.vocabRounds[this.currentRoundIndex];
-                     if (!this.isPitStopMode) {
-                         if (currentRound && currentRound.id === 'random') {
-                             nextBtn.classList.remove('hidden');
-                             nextBtn.innerText = "AGAIN (SAME SETUP)"; 
-                             nextBtn.onclick = () => { this.createRandomRound(); };
-                         } else if (this.currentRoundIndex + 1 < this.vocabRounds.length) {
-                             nextBtn.classList.remove('hidden');
-                             nextBtn.innerText = "NEXT SECTOR";
-                             nextBtn.onclick = () => { 
-                                 document.getElementById('round-selector').value = this.currentRoundIndex + 1; 
-                                 this.start(); 
-                             };
-                         } else {
-                             nextBtn.classList.add('hidden');
-                         }
-                     } else { 
-                         nextBtn.classList.add('hidden'); 
-                     }
-                 }
-                 
+                 // 7. テレメトリの最終同期
                  if (window.fetchSRSItems) window.fetchSRSItems();
                  if (window.incrementDailyLaps) window.incrementDailyLaps(); 
 
              } catch (err) {
                  console.error("Critical Failure in Finish Logic:", err);
-                 // フリーズ回避のため、最悪でもスタート画面に戻れるようにする
-                 alert("Race Data Sync Issue. Returning to Paddock.");
+                 // 万が一クラッシュした際の脱出用：アラートを出して強制復帰
+                 alert("Result Engine Fault. Check console for telemetry.");
                  this.returnToGrid();
              }
          }
+
+
+        
          returnToGrid() {
              document.getElementById('result-screen').classList.add('hidden');
              document.getElementById('start-screen').classList.remove('hidden');
