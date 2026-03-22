@@ -557,6 +557,15 @@
     </div>
 
     <script>
+
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('./service-worker.js')
+      .then(reg => console.log('Service Worker Registered'))
+      .catch(err => console.log('Registration Failed', err));
+  });
+}
+
       const rawData = `
 a piece of ～：1つの～｜I need a piece of paper to write a note.
 a couple of ～：2、3の～｜I’ll be back in a couple of days.
